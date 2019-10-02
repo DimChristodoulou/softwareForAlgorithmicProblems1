@@ -7,7 +7,7 @@ git add . && \
 git add -u && \
 read -p "Commit description: " desc
 git commit -m "$desc" && \
-git push heroku master
+git push
 cp "html/*" "../project-algorithms-doc"
 cd "../project-algorithms-doc"
 git add .
