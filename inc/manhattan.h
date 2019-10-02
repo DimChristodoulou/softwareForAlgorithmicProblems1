@@ -1,14 +1,12 @@
+/*! \file manhattan.h
+    \brief This file contains the declarations of functions used in Manhattan distances and heuristics.
+*/
 
-class manhattan
-{
-    private:
-        int x,y;
-    public:
-        manhattan(/* args */);
-        ~manhattan();
+#ifndef __UTILS__
+#define __UTILS__
 
-        template <typename numeric>
-        numeric initialize(numeric, numeric);
-        template <typename numeric>
-        numeric calculate();
-};
+#include "point.h"
+
+float calculate(Point*, Point*);
+
+#endif
