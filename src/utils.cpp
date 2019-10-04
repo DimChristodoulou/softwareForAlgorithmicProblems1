@@ -14,7 +14,7 @@ using namespace std;
  * @param filePath The path of the file starting from the root folder.
  * @return vector<Point*> The parsed text file represented in Point object vector.
  */
-vector<Point*> parseFileForPoints(string filePath){
+vector<Point*> parseFileForPoints(string filePath, bool isSearchDataset = false, double *radius = NULL){
     cout << filePath << endl;
     ifstream pointsFile;
     pointsFile.open(filePath);
@@ -27,8 +27,15 @@ vector<Point*> parseFileForPoints(string filePath){
         string fileLine, currentPointIdentifier;
         vector<float> currentPointCoordinates;
 
+        if(isSearchDataset){
+            getline(pointsFile, fileLine);
+            istringstream iss(fileLine);
+            vector<string> results(istream_iterator<string>{iss}, istream_iterator<string>());
+            *radius = stod(results[0]);
+        }
+
         while (getline(pointsFile, fileLine)){
-            std::istringstream iss(fileLine);
+            istringstream iss(fileLine);
             vector<string> results(istream_iterator<string>{iss}, istream_iterator<string>());
 
             currentPointIdentifier = results[0];

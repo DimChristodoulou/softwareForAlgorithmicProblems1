@@ -8,3 +8,4 @@
 std::vector<Point*> parseFileForPoints(std::string);
 int strArraySearch(char const*[], int, char*);
 int hashFunction(int);
+std::vector<Point*> parseFileForPoints(std::string, bool isSearchDataset = false, double *radius = NULL);
