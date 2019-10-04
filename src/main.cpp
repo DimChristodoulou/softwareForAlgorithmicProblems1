@@ -12,6 +12,12 @@ int main(int argc, char const *argv[])
         cout << "Error Occured; Exiting" << endl;
     }
 
+    vector<Point*> initialQueryset = parseFileForPoints("querysets/sample1.txt");
+    if(initialQueryset.empty()){
+        cout << "Error Occured; Exiting" << endl;
+    }
+
+
     //Some debugging
     for (int i = 0; i < initialDataset.size(); i++)
     {
