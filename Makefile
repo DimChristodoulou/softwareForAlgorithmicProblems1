@@ -6,18 +6,18 @@ CC = g++
 #  -Wall turns on most, but not all, compiler warnings
 CFLAGS  = -g -std=c++11
 
-all: main
+all: lsh
 
 unittests: tests
 
 tests: manhattan.o utils.o point.o tests.o
 	$(CC) $(CFLAGS) manhattan.o utils.o point.o tests.o -lm -o exe/tests
 
-main: main.o manhattan.o utils.o point.o
-	$(CC) $(CFLAGS) main.o manhattan.o utils.o point.o -lm -o exe/main
+lsh: lsh.o manhattan.o utils.o point.o
+	$(CC) $(CFLAGS) lsh.o manhattan.o utils.o point.o -lm -o exe/lsh
 
-main.o: src/main.cpp
-	$(CC) $(CFLAGS) -c src/main.cpp
+lsh.o: src/lsh.cpp
+	$(CC) $(CFLAGS) -c src/lsh.cpp
 
 manhattan.o: src/manhattan.cpp
 	$(CC) $(CFLAGS) -c src/manhattan.cpp

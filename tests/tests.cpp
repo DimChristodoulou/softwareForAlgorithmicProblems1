@@ -24,15 +24,31 @@ TEST_CASE( "Unit Test for Manhattan Distances", "[manhattan]" ) {
 
     Point *p1 = new Point(p1coords);
     Point *p2 = new Point(p2coords);
+    REQUIRE( calculate(p1,p2) == 4.0 );
+
     Point *p3 = new Point(p3coords);
     Point *p4 = new Point(p4coords);
+    REQUIRE( calculate(p3,p4) == 0.0 );
+
     Point *p5 = new Point(p5coords);
     Point *p6 = new Point(p6coords);
+    REQUIRE( calculate(p5,p6) == -1.0 );
+
     Point *p7 = new Point(p7coords);
     Point *p8 = new Point(p8coords);
-    
-    REQUIRE( calculate(p1,p2) == 4.0 );
-    REQUIRE( calculate(p3,p4) == 0.0 );
-    REQUIRE( calculate(p5,p6) == -1.0 );
     REQUIRE( calculate(p7,p8) == -1.0 );
+}
+
+TEST_CASE( "Unit Test for function strArraySearch [src/utils.cpp]", "[strArraySearch]" ){
+    char const *testCase1[] = {"-d", "dog", "-f", "fox"};
+    REQUIRE (strArraySearch(testCase1, 4, "-d") == 0);
+
+    char const *testCase2[] = {"-d", "dog", "-f", "fox"};
+    REQUIRE (strArraySearch(testCase1, 4, "-r") == -1);
+
+    char const *testCase3[] = {};
+    REQUIRE (strArraySearch(testCase1, 0, "-d") == -1);
+
+    char const *testCase4[] = {"duck", "-d", "dog", "-d"};
+    REQUIRE (strArraySearch(testCase1, 0, "-d") == 1);
 }

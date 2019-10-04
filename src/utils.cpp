@@ -4,6 +4,8 @@
 #include "../inc/globals.h"
 #include "../inc/point.h"
 
+#define __HASH_PARAMETER 13
+
 using namespace std;
 
 /**
@@ -46,4 +48,47 @@ vector<Point*> parseFileForPoints(string filePath){
         return dataset;
     }
 
+}
+
+/**
+ * @brief Gets an array of char[] pointers, searches for the given delimiter and returns its first position
+ * 
+ * @param array The argument array to be parsed
+ * @param len The length of the argv array
+ * @param delim The delimiter to check
+ * @return int If delimiter was found, return its position. If not, return -1.
+ */
+int strArraySearch(char const *array[], int len, char *delim){
+    if(len == 0){
+        return -1;
+    }
+	for(int i = 0; i < len; ++i){
+	    if(!strcmp(array[i], delim))
+	        return i;
+	}
+	return -1;
+}
+
+/**
+ * @brief Simple modulus hash function
+ * 
+ * @param value The hash value
+ * @return int Corresponds to the bucket index of the @param value
+ */
+int hashFunction(int value){
+    return value % __HASH_PARAMETER;
+}
+
+/**
+ * @brief IMPORTANT: Only available in c++11. Need to verify if that's what we'll be running.
+ * 
+ */
+void generateUniformNumbers(){
+    const int range_from  = 0;
+    const int range_to    = 10;
+    std::random_device                  rand_dev;
+    std::mt19937                        generator(rand_dev());
+    std::uniform_int_distribution<int>  distr(range_from, range_to);
+
+    std::cout << distr(generator) << '\n';
 }
