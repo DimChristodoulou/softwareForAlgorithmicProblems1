@@ -44,11 +44,11 @@ TEST_CASE( "Unit Test for function strArraySearch [src/utils.cpp]", "[strArraySe
     REQUIRE (strArraySearch(testCase1, 4, "-d") == 0);
 
     char const *testCase2[] = {"-d", "dog", "-f", "fox"};
-    REQUIRE (strArraySearch(testCase1, 4, "-r") == -1);
+    REQUIRE (strArraySearch(testCase2, 4, "-r") == -1);
 
     char const *testCase3[] = {};
-    REQUIRE (strArraySearch(testCase1, 0, "-d") == -1);
+    REQUIRE (strArraySearch(testCase3, 0, "-d") == -1);
 
     char const *testCase4[] = {"duck", "-d", "dog", "-d"};
-    REQUIRE (strArraySearch(testCase1, 0, "-d") == 1);
+    REQUIRE (strArraySearch(testCase4, 4, "-d") == 1);
 }
