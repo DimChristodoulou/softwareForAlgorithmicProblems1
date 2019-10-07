@@ -21,7 +21,7 @@ using namespace std;
 
 int main(int argc, char const *argv[])
 {
-    int count, numberOfHiFunctions, numberOfHashTables;
+    int count, numberOfHiFunctions = 0, numberOfHashTables = 0;
     FILE *inputFile, *outputFile, *queryFile;
     string inputFileName, outputFileName, queryFileName;
 
@@ -37,10 +37,10 @@ int main(int argc, char const *argv[])
         queryFileName = count != -1 ? argv[count+1] : NULL;
 
         count = strArraySearch(argv, argc, "-k");
-        numberOfHiFunctions = count != -1 ? stoi(argv[count+1]) : NULL;
+        numberOfHiFunctions = count != -1 ? stoi(argv[count+1]) : 0;
 
         count = strArraySearch(argv, argc, "-L");
-        numberOfHashTables = count != -1 ? stoi(argv[count+1]) : NULL;
+        numberOfHashTables = count != -1 ? stoi(argv[count+1]) : 0;
     }
     else if (argc == __MINIMAL_ARGUMENTS){
         cout << "You haven't provided an input file location. Please enter one now: ";
@@ -62,16 +62,17 @@ int main(int argc, char const *argv[])
         return -1;
     }
 
-    if(empty(inputFileName) 
-        || empty(outputFileName) 
-        || empty(queryFileName) 
-        || numberOfHiFunctions == NULL 
-        || numberOfHashTables == NULL){
+    if(inputFileName.empty() 
+        || outputFileName.empty()
+        || queryFileName.empty()
+        || numberOfHiFunctions == 0 
+        || numberOfHashTables == 0){
             cerr << "You have provided invalid arguments. Exiting." << endl;
     }
     
+    int w = generateRandomW();
 
-    vector<Point*> initialDataset = parseFileForPoints("datasets/sample1.txt");
+    vector<Point*> initialDataset = parseFileForPoints("datasets/sample1.txt", false, NULL);
     if(initialDataset.empty()){
         cout << "Error Occured; Exiting" << endl;
     }
@@ -83,6 +84,22 @@ int main(int argc, char const *argv[])
         initialDataset[i]->printCoordinatesFormatted();
 
         cout << calculate(initialDataset[0], initialDataset[1]) << endl;
+    }
+
+    double radius;
+    vector<Point*> initialSearchDataset = parseFileForPoints("datasets/sample_search_dataset.txt", true, &radius);
+    if(initialSearchDataset.empty()){
+        cout << "Error Occured; Exiting" << endl;
+    }
+
+    //Some debugging
+    for (int i = 0; i < initialSearchDataset.size(); i++)
+    {
+        cout << initialSearchDataset[i]->getPointIdentifier() << endl;
+        initialSearchDataset[i]->printCoordinatesFormatted();
+
+        cout << "radius: " << radius << endl;
+        cout << calculate(initialSearchDataset[0], initialSearchDataset[1]) << endl;
     }
 
 

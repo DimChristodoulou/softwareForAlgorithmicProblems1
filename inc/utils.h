@@ -5,7 +5,8 @@
 #include "globals.h"
 #include "point.h"
 
+int generateRandomW();
 std::vector<Point*> parseFileForPoints(std::string);
-int strArraySearch(char const*[], int, char*);
+int strArraySearch(char const*[], int, char const*);
 int hashFunction(int);
-std::vector<Point*> parseFileForPoints(std::string, bool isSearchDataset = false, double *radius = NULL);
+std::vector<Point*> parseFileForPoints(std::string, bool isSearchDataset, double *radius);

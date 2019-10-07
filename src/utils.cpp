@@ -9,6 +9,15 @@
 using namespace std;
 
 /**
+ * @brief Returns a random large integer (W >> r)
+ * 
+ * @return int 
+ */
+int generateRandomW(){
+    return rand();
+}
+
+/**
  * @brief Reads a file and returns a vector of Point objects from the points in the file (1 per line). 
  * 
  * @param filePath The path of the file starting from the root folder.
@@ -33,11 +42,11 @@ vector<Point*> parseFileForPoints(string filePath, bool isSearchDataset = false,
             vector<string> results(istream_iterator<string>{iss}, istream_iterator<string>());
             *radius = stod(results[0]);
         }
-
+        cout << "b" << endl << endl;
         while (getline(pointsFile, fileLine)){
             istringstream iss(fileLine);
             vector<string> results(istream_iterator<string>{iss}, istream_iterator<string>());
-
+            cout << "a" << endl;
             currentPointIdentifier = results[0];
             for (int i = 1; i < results.size(); i++){
                 currentPointCoordinates.push_back(stof(results[i]));
@@ -65,7 +74,7 @@ vector<Point*> parseFileForPoints(string filePath, bool isSearchDataset = false,
  * @param delim The delimiter to check
  * @return int If delimiter was found, return its position. If not, return -1.
  */
-int strArraySearch(char const *array[], int len, char *delim){
+int strArraySearch(char const *array[], int len, char const *delim){
     if(len == 0){
         return -1;
     }
@@ -93,9 +102,9 @@ int hashFunction(int value){
 void generateUniformNumbers(){
     const int range_from  = 0;
     const int range_to    = 10;
-    std::random_device                  rand_dev;
-    std::mt19937                        generator(rand_dev());
-    std::uniform_int_distribution<int>  distr(range_from, range_to);
+    random_device rand_dev;
+    mt19937 generator(rand_dev());
+    uniform_int_distribution<int> distr(range_from, range_to);
 
-    std::cout << distr(generator) << '\n';
+    cout << distr(generator) << '\n';
 }
