@@ -1,3 +1,3 @@
-1.657
-searchItem1 1.3 2   3.7 5.46
-searchItem2 5   7.65    3.558   2
+version https://git-lfs.github.com/spec/v1
+oid sha256:0c52b33782084a28f59954532865869ab1dbe90533afd04ba52dcb272ca45383
+size 68
