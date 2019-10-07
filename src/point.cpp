@@ -62,3 +62,7 @@ void Point::printCoordinatesFormatted(){
     }
     cout << endl;
 }
+
+int Point::getDimension(){
+    return this->getCoordinates().size();
+}

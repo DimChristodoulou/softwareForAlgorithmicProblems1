@@ -99,12 +99,17 @@ int hashFunction(int value){
  * @brief IMPORTANT: Only available in c++11. Need to verify if that's what we'll be running.
  * 
  */
-void generateUniformNumbers(){
-    const int range_from  = 0;
-    const int range_to    = 10;
+vector<float> generateUniformNumbers(int lowBound, int highBound, int amountOfOutputtedNums){
     random_device rand_dev;
     mt19937 generator(rand_dev());
-    uniform_int_distribution<int> distr(range_from, range_to);
+    //uniform_int_distribution<int> distr(lowBound, highBound);
+    uniform_real_distribution<float> realDistribution(lowBound, highBound);
 
-    cout << distr(generator) << '\n';
+    vector<float> numbersGenerated;
+
+    for (int i=0; i<amountOfOutputtedNums; ++i) {
+        numbersGenerated.push_back(realDistribution(generator));
+    }
+
+    return numbersGenerated;
 }

@@ -19,6 +19,7 @@ class Point{
         std::vector<float> getCoordinates();
         void setCoordinates(std::vector<float> coordinates);
         void printCoordinatesFormatted();
+        int getDimension();
 };
 
 #endif

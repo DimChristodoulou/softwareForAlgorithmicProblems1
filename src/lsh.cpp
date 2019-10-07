@@ -77,30 +77,8 @@ int main(int argc, char const *argv[])
         cout << "Error Occured; Exiting" << endl;
     }
 
-    //Some debugging
-    for (int i = 0; i < initialDataset.size(); i++)
-    {
-        cout << initialDataset[i]->getPointIdentifier() << endl;
-        initialDataset[i]->printCoordinatesFormatted();
-
-        cout << calculate(initialDataset[0], initialDataset[1]) << endl;
-    }
-
-    double radius;
-    vector<Point*> initialSearchDataset = parseFileForPoints("datasets/sample_search_dataset.txt", true, &radius);
-    if(initialSearchDataset.empty()){
-        cout << "Error Occured; Exiting" << endl;
-    }
-
-    //Some debugging
-    for (int i = 0; i < initialSearchDataset.size(); i++)
-    {
-        cout << initialSearchDataset[i]->getPointIdentifier() << endl;
-        initialSearchDataset[i]->printCoordinatesFormatted();
-
-        cout << "radius: " << radius << endl;
-        cout << calculate(initialSearchDataset[0], initialSearchDataset[1]) << endl;
-    }
+    int pointsDimension = initialDataset[0]->getDimension();
+    
 
 
 }
