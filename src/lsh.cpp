@@ -70,7 +70,8 @@ int main(int argc, char const *argv[])
             cerr << "You have provided invalid arguments. Exiting." << endl;
     }
     
-    int w = generateRandomW();
+    long long unsigned w = generateRandomW();
+    cout << "W is: " << w << endl;
 
     vector<Point*> initialDataset = parseFileForPoints("datasets/sample1.txt", false, NULL);
     if(initialDataset.empty()){
@@ -78,7 +79,13 @@ int main(int argc, char const *argv[])
     }
 
     int pointsDimension = initialDataset[0]->getDimension();
-    
 
+    vector<float> uniformNumbers = generateUniformNumbers(0, w, pointsDimension);
+    vector<float> randomNumbers = generateRandomNumbersBetween(0, w, pointsDimension);
+    for (int i = 0; i < uniformNumbers.size(); i++){
+        cout << uniformNumbers[i] << endl;
+        cout << randomNumbers[i] << endl;
+    }
+    
 
 }

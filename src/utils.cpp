@@ -13,8 +13,12 @@ using namespace std;
  * 
  * @return int 
  */
-int generateRandomW(){
-    return rand();
+long long unsigned generateRandomW(){
+    std::random_device rd;
+    std::default_random_engine generator(rd());
+    /* Distribution on which to apply the generator */
+    std::uniform_int_distribution<long long unsigned> distribution(0,0xFFFFFFFFFFFFFFFF);
+    return distribution(generator);
 }
 
 /**
@@ -98,6 +102,10 @@ int hashFunction(int value){
 /**
  * @brief IMPORTANT: Only available in c++11. Need to verify if that's what we'll be running.
  * 
+ * @param lowBound From <range modifier>
+ * @param highBound To <range modifier>
+ * @param amountOfOutputtedNums How many numbers will be returned
+ * @return vector<float> 
  */
 vector<float> generateUniformNumbers(int lowBound, int highBound, int amountOfOutputtedNums){
     random_device rand_dev;
@@ -112,4 +120,18 @@ vector<float> generateUniformNumbers(int lowBound, int highBound, int amountOfOu
     }
 
     return numbersGenerated;
+}
+
+/**
+ * @brief 
+ * 
+ * @return vector<float> 
+ */
+vector<float> generateRandomNumbersBetween(int lowBound, int highBound, int amountOfOutputtedNums){
+    srand (time(NULL));
+    vector<float> generatedNumbers;
+    for (int i = 0; i < amountOfOutputtedNums; i++){
+        generatedNumbers.push_back( (rand()%highBound) + lowBound );
+    }
+    return generatedNumbers;
 }
