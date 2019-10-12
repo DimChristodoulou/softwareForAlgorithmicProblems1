@@ -20,7 +20,7 @@ class Point{
         void setCoordinates(std::vector<float> coordinates);
         void printCoordinatesFormatted();
         int getDimension();
-        Point* getClosestNeighbor(vector<Point*>);
+        int getClosestNeighbor(std::vector<float>);
 };
 
 #endif

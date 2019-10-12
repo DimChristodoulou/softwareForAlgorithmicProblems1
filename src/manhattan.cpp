@@ -26,6 +26,6 @@ float calculate(Point *startingPoint, Point *endingPoint){
                     startingPointCoordinates[i] - endingPointCoordinates[i] : 
                     endingPointCoordinates[i] - startingPointCoordinates[i];
     }
-    
+
     return distance;
 }

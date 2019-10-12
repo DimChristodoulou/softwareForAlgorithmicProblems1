@@ -45,13 +45,17 @@ vector<Point*> parseFileForPoints(string filePath, bool isSearchDataset = false,
             getline(pointsFile, fileLine);
             istringstream iss(fileLine);
             vector<string> results(istream_iterator<string>{iss}, istream_iterator<string>());
-            *radius = stod(results[0]);
+            if(results.size() > 1){
+                pointsFile.clear();
+                pointsFile.seekg(0, ios::beg);
+                cout << results[0] << endl;
+                *radius = stod(results[0]);
+            }
         }
-        cout << "b" << endl << endl;
+
         while (getline(pointsFile, fileLine)){
             istringstream iss(fileLine);
             vector<string> results(istream_iterator<string>{iss}, istream_iterator<string>());
-            cout << "a" << endl;
             currentPointIdentifier = results[0];
             for (unsigned int i = 1; i < results.size(); i++){
                 currentPointCoordinates.push_back(stof(results[i]));
@@ -137,13 +141,23 @@ vector<float> generateRandomNumbersBetween(int lowBound, int highBound, int amou
     return generatedNumbers;
 }
 
-
-vector<vector<int>> generateExhaustiveArray(vector<Point *> initialDataset, vector<Point*> queryDataset){
+/**
+ * @brief generates a PxQ array of floats. Each row represents the distance of a query point from each other dataset point.
+ * 
+ * @param initialDataset The training dataset (columns)
+ * @param queryDataset The search dataset (rows)
+ * @return vector<vector<float>> The distance matrix
+ */
+vector<vector<float>> generateExhaustiveArray(vector<Point *> initialDataset, vector<Point*> queryDataset){
     unsigned int i,j;
-    vector<vector<int>> exhaustiveArray;
+    vector<vector<float>> exhaustiveArray;
+    vector<float> exhaustiveArrayRow;
     for(i=0; i<initialDataset.size();i++){
+        exhaustiveArrayRow.clear();
         for (j = 0; j < queryDataset.size(); j++){
-            exhaustiveArray[i][j] = calculate(initialDataset[i], queryDataset[j]);
+            exhaustiveArrayRow.push_back( calculate(initialDataset[i], queryDataset[j]) );
         }
+        exhaustiveArray.push_back(exhaustiveArrayRow);
     }
+    return exhaustiveArray;
 }

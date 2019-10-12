@@ -67,9 +67,23 @@ int Point::getDimension(){
     return this->getCoordinates().size();
 }
 
-Point* getClosestNeighbor(vector<Point*> allPointNeighbors){
-    for (unsigned int i = 0; i < allPointNeighbors.size(); i++){
-        /* code */
+/**
+ * @brief Returns the closest (minimum manhattan distance) dataset point of a query point.
+ * 
+ * @param allPointNeighborDistances Represents a row of the distance matrix.
+ * @return int The index of the closest neighbor
+ */
+int Point::getClosestNeighbor(vector<float> allPointNeighborDistances){
+
+    float minDistance = numeric_limits<float>::max();
+    int indexOfNeighbor;
+
+    for (unsigned int i = 0; i < allPointNeighborDistances.size(); i++){
+        if(allPointNeighborDistances[i] < minDistance){
+            minDistance = allPointNeighborDistances[i];
+            indexOfNeighbor = i;
+        }
     }
     
+    return indexOfNeighbor;
 }
