@@ -12,3 +12,4 @@ int generateRandomW();
 std::vector<Point*> parseFileForPoints(std::string, bool isSearchDataset, double *radius);
 std::vector<float> generateUniformNumbers(int, int, int);
 std::vector<float> generateRandomNumbersBetween(int, int, int);
+vector<vector<int>> generateExhaustiveArray(vector<Point *>, vector<Point*>);

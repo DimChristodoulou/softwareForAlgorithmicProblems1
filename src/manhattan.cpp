@@ -20,7 +20,7 @@ float calculate(Point *startingPoint, Point *endingPoint){
         return -1;
     }
 
-    for (int i = 0; i < startingPointCoordinates.size(); i++){
+    for (unsigned int i = 0; i < startingPointCoordinates.size(); i++){
         //Absolute value notation
         distance += startingPointCoordinates[i] - endingPointCoordinates[i] > 0 ? 
                     startingPointCoordinates[i] - endingPointCoordinates[i] : 

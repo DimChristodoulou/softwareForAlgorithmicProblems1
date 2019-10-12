@@ -17,12 +17,15 @@
 #define __FULL_ARGUMENTS 11
 #define __MINIMAL_ARGUMENTS 3
 
+#define _N 20
+
 using namespace std;
 
 int main(int argc, char const *argv[])
 {
     int count, numberOfHiFunctions = 0, numberOfHashTables = 0;
-    FILE *inputFile, *outputFile, *queryFile;
+    unsigned int i, j;
+    //FILE *inputFile, *outputFile, *queryFile;
     string inputFileName, outputFileName, queryFileName;
 
     //Argument Handling
@@ -69,12 +72,19 @@ int main(int argc, char const *argv[])
         || numberOfHashTables == 0){
             cerr << "You have provided invalid arguments. Exiting." << endl;
     }
+    //End Argument Handling
     
     long long unsigned w = generateRandomW();
     cout << "W is: " << w << endl;
 
-    vector<Point*> initialDataset = parseFileForPoints("datasets/sample1.txt", false, NULL);
+    vector<Point*> initialDataset = parseFileForPoints(inputFileName, false, NULL);
     if(initialDataset.empty()){
+        cout << "Error Occured; Exiting" << endl;
+    }
+
+    double radius;
+    vector<Point*> queryDataset = parseFileForPoints(queryFileName, true, &radius);
+    if(queryDataset.empty()){
         cout << "Error Occured; Exiting" << endl;
     }
 
@@ -82,9 +92,15 @@ int main(int argc, char const *argv[])
 
     vector<float> uniformNumbers = generateUniformNumbers(0, w, pointsDimension);
     vector<float> randomNumbers = generateRandomNumbersBetween(0, w, pointsDimension);
-    for (int i = 0; i < uniformNumbers.size(); i++){
+    for (i = 0; i < uniformNumbers.size(); i++){
         cout << uniformNumbers[i] << endl;
         cout << randomNumbers[i] << endl;
+    }
+
+    vector<vector<int>> exhaustiveArray = generateExhaustiveArray(initialDataset, queryDataset);
+    
+    for (i = 0; i < queryDataset.size(); i++){
+        
     }
     
 

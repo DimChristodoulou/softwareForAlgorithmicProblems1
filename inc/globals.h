@@ -15,5 +15,6 @@
 #include <vector>
 #include <iterator>
 #include <random>
+#include <time.h>
 
 #endif

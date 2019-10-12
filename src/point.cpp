@@ -57,7 +57,7 @@ void Point::setCoordinates(vector<float> coordinates){
  * 
  */
 void Point::printCoordinatesFormatted(){
-    for (int i = 0; i < this->_coordinates.size(); i++){
+    for (unsigned int i = 0; i < this->_coordinates.size(); i++){
         cout << "c" << i << " - " << this->_coordinates[i] << "\t";
     }
     cout << endl;
@@ -65,4 +65,11 @@ void Point::printCoordinatesFormatted(){
 
 int Point::getDimension(){
     return this->getCoordinates().size();
+}
+
+Point* getClosestNeighbor(vector<Point*> allPointNeighbors){
+    for (unsigned int i = 0; i < allPointNeighbors.size(); i++){
+        /* code */
+    }
+    
 }

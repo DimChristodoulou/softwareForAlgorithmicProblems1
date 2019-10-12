@@ -3,6 +3,7 @@
 */
 #include "../inc/globals.h"
 #include "../inc/point.h"
+#include "../inc/manhattan.h"
 
 #define __HASH_PARAMETER 13
 
@@ -52,7 +53,7 @@ vector<Point*> parseFileForPoints(string filePath, bool isSearchDataset = false,
             vector<string> results(istream_iterator<string>{iss}, istream_iterator<string>());
             cout << "a" << endl;
             currentPointIdentifier = results[0];
-            for (int i = 1; i < results.size(); i++){
+            for (unsigned int i = 1; i < results.size(); i++){
                 currentPointCoordinates.push_back(stof(results[i]));
             }
 
@@ -67,7 +68,7 @@ vector<Point*> parseFileForPoints(string filePath, bool isSearchDataset = false,
     if(!dataset.empty()){
         return dataset;
     }
-
+    return {};
 }
 
 /**
@@ -134,4 +135,15 @@ vector<float> generateRandomNumbersBetween(int lowBound, int highBound, int amou
         generatedNumbers.push_back( (rand()%highBound) + lowBound );
     }
     return generatedNumbers;
+}
+
+
+vector<vector<int>> generateExhaustiveArray(vector<Point *> initialDataset, vector<Point*> queryDataset){
+    unsigned int i,j;
+    vector<vector<int>> exhaustiveArray;
+    for(i=0; i<initialDataset.size();i++){
+        for (j = 0; j < queryDataset.size(); j++){
+            exhaustiveArray[i][j] = calculate(initialDataset[i], queryDataset[j]);
+        }
+    }
 }
