@@ -6,6 +6,7 @@
  * @date 2019-10-04
  * 
  * HOW TO INVOKE FOR SAMPLE : ./exe/lsh -d datasets/sample1.txt -o output.txt -q querysets/sample1.txt -k 4 -L 5
+ * HOW TO INVOKE FOR SAMPLE : ./exe/lsh -d datasets/input_small_id -o output.txt -q querysets/query_small_id -k 4 -L 5
  * 
  * @copyright Copyright (c) 2019
  * 

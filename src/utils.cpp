@@ -152,10 +152,11 @@ vector<vector<float>> generateExhaustiveArray(vector<Point *> initialDataset, ve
     unsigned int i,j;
     vector<vector<float>> exhaustiveArray;
     vector<float> exhaustiveArrayRow;
-    for(i=0; i<initialDataset.size();i++){
+    cout << initialDataset.size() << endl;
+    for(i=0; i<queryDataset.size();i++){
         exhaustiveArrayRow.clear();
-        for (j = 0; j < queryDataset.size(); j++){
-            exhaustiveArrayRow.push_back( calculate(initialDataset[i], queryDataset[j]) );
+        for (j = 0; j < initialDataset.size(); j++){
+            exhaustiveArrayRow.push_back( calculate(initialDataset[j], queryDataset[i]) );
         }
         exhaustiveArray.push_back(exhaustiveArrayRow);
     }
