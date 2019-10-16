@@ -162,3 +162,19 @@ vector<vector<float>> generateExhaustiveArray(vector<Point *> initialDataset, ve
     }
     return exhaustiveArray;
 }
+
+/**
+ * @brief This is the hi hash function
+ * 
+ * @param initialDatasetPoint the point xi
+ * @param w the number we calculated beforehand (=10*mean(minimum_dist))
+ * @return int a hash value
+ */
+int hiHashFunction(Point *initialDatasetPoint, int w){
+
+    int dim = initialDatasetPoint->getDimension();
+    vector<float> xi = initialDatasetPoint->getCoordinates();
+    vector<float> si = generateRandomNumbersBetween(0, w, dim);
+
+
+}

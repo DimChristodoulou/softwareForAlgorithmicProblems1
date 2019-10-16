@@ -76,9 +76,6 @@ int main(int argc, char const *argv[])
             cerr << "You have provided invalid arguments. Exiting." << endl;
     }
     //End Argument Handling
-    
-    long long unsigned w = generateRandomW();
-    cout << "W is: " << w << endl;
 
     //Produce dataset
     vector<Point*> initialDataset = parseFileForPoints(inputFileName, false, NULL);
@@ -94,6 +91,11 @@ int main(int argc, char const *argv[])
     }
     
     int pointsDimension = initialDataset[0]->getDimension();
+    int queryDimension = queryDataset[0]->getDimension();
+    if(pointsDimension != queryDimension){
+        cerr << "Dimensions are not equal" << endl;
+        return -1;
+    }
     
     // vector<float> uniformNumbers = generateUniformNumbers(0, w, pointsDimension);
     // vector<float> randomNumbers = generateRandomNumbersBetween(0, w, pointsDimension);
@@ -119,6 +121,8 @@ int main(int argc, char const *argv[])
     
 
     vector<vector<float>> exhaustiveArray = generateExhaustiveArray(initialDataset, queryDataset);
+
+    float w = 0;
     
     // for (i = 0; i < initialDataset.size(); i++){
     //     for (j = 0; j < queryDataset.size(); j++){
@@ -137,8 +141,13 @@ int main(int argc, char const *argv[])
              << initialDataset[index]->getPointIdentifier() 
              << " with distance " 
              << exhaustiveArray[i][index] << endl;
+        w += exhaustiveArray[i][index];
     }
-    
+
     myfile.close();
+
+    w = ((float)w/pointsDimension)*10;
+    cout << w << endl;
+    
 
 }
