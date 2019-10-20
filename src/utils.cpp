@@ -133,7 +133,6 @@ vector<float> generateUniformNumbers(int lowBound, int highBound, int amountOfOu
  * @return vector<float> 
  */
 vector<float> generateRandomNumbersBetween(int lowBound, int highBound, int amountOfOutputtedNums){
-    srand (time(NULL));
     vector<float> generatedNumbers;
     for (int i = 0; i < amountOfOutputtedNums; i++){
         generatedNumbers.push_back( (rand()%highBound) + lowBound );
@@ -164,17 +163,72 @@ vector<vector<float>> generateExhaustiveArray(vector<Point *> initialDataset, ve
 }
 
 /**
+ * @brief Modular Exponentiation
+ * 
+ * @param base 
+ * @param exponent
+ * @param modulus
+ * @return int 
+ */
+int modularExponentiation(unsigned int base, int exponent, int modulus){
+    int remainder;
+    int x = 1;
+    while (exponent != 0){
+        remainder = exponent % 2;
+        exponent = exponent/2;
+
+        if (remainder == 1)
+        x = (x * base) % modulus;
+        base = (base * base) % modulus; // New base equal b^2 % m
+    }
+    return x;
+}
+
+int mod(int a, int b) {
+    return (abs(a) % b + b) % b;
+}
+
+long long convertDecimalToBinary(int n){
+    long long binaryNumber = 0;
+    int remainder, i = 1, step = 1;
+    while (n!=0){
+        remainder = n%2;
+        n /= 2;
+        binaryNumber += remainder*i;
+        i *= 10;
+    }
+    return binaryNumber;
+}
+
+/**
  * @brief This is the hi hash function
  * 
  * @param initialDatasetPoint the point xi
  * @param w the number we calculated beforehand (=10*mean(minimum_dist))
  * @return int a hash value
  */
-int hiHashFunction(Point *initialDatasetPoint, int w){
+int hiHashFunction(Point *initialDatasetPoint, int w, unsigned int base, int modulo){
 
     int dim = initialDatasetPoint->getDimension();
+    int hashValue = 0;
+
     vector<float> xi = initialDatasetPoint->getCoordinates();
     vector<float> si = generateRandomNumbersBetween(0, w, dim);
-
-
+    // for (size_t i = 0; i < si.size(); i++)
+    // {
+    //     cout << si[i] << " ";
+    // }
+    // cout << endl << endl;
+    
+    for (int i = 0; i < dim; i++){
+        int modulus = modularExponentiation(base, dim-1-i, modulo);
+        int lvalue = int ( floor( (xi[i]-si[i]) /w ));
+        hashValue += ( mod(lvalue, modulo) *modulus) % modulo;
+        //cout << "MODULUS " << modulus << " HASHVALUE " << hashValue << " FLOOR "  << floor(xi[i] - si[i]) << " w " << w << " lvalue " << lvalue << endl;
+    }
+    
+    // cout << hashValue << " modulo " << modulo << endl;
+    // cout << "return " << (hashValue % modulo) << endl;
+    return (hashValue%modulo);
 }
+

@@ -16,5 +16,8 @@
 #include <iterator>
 #include <random>
 #include <time.h>
+#include <math.h>
+#include <cmath>
+#include <bitset>
 
 #endif

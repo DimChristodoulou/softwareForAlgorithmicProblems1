@@ -26,6 +26,9 @@ using namespace std;
 
 int main(int argc, char const *argv[])
 {
+    srand (time(NULL));
+    unsigned int m = pow(2,32)-5;
+
     int count, numberOfHiFunctions = 0, numberOfHashTables = 0;
     unsigned int i,j;
     //FILE *inputFile, *outputFile, *queryFile;
@@ -76,6 +79,10 @@ int main(int argc, char const *argv[])
             cerr << "You have provided invalid arguments. Exiting." << endl;
     }
     //End Argument Handling
+
+    int tempPow = 32 / numberOfHiFunctions;
+    cout << numberOfHiFunctions << endl;
+    unsigned int M = pow(2,tempPow);
 
     //Produce dataset
     vector<Point*> initialDataset = parseFileForPoints(inputFileName, false, NULL);
@@ -146,8 +153,49 @@ int main(int argc, char const *argv[])
 
     myfile.close();
 
-    w = ((float)w/pointsDimension)*10;
+    w = ((float)w/pointsDimension)*4;
     cout << w << endl;
+
+    int d = queryDataset[0]->getDimension();
+    
+    cout << "MODULAR EXPO: " << modularExponentiation(m, d-1, M) << endl;
+
+    cout << "HASH VALUE H1: " << hiHashFunction(initialDataset[0],w,m,M);
+
+    int hvalue, length;
+    short int binaryDigits = 32/numberOfHiFunctions;
+    long long binHValue, tempBinHValue;
+
+    ostringstream oss;
+    for (int i = 0; i < numberOfHiFunctions; i++){
+        length = 1;
+
+        hvalue = hiHashFunction(initialDataset[0],w,m,M);
+        binHValue = convertDecimalToBinary(hvalue);
+        tempBinHValue = binHValue;
+
+        while ( tempBinHValue /= 10 )
+            length++;
+
+        cout << "hvalue " << hvalue << " BINARY " << binHValue << " length " << length << endl;
+
+        while(length < binaryDigits){
+            oss << '0';
+            cout << oss.str() << endl;
+            length++;
+        }
+        oss << binHValue;
+        cout << oss.str() << endl;
+    }
+    string myStr = oss.str();
+    char *strStart = &(myStr[0]), *strEnd;
+    printf("CSTYLE %s\n", strStart);
+    // istringstream iss(oss.str());
+    // cout << iss.str() << endl;
+    unsigned long long int binaryHashValue;
+    binaryHashValue = strtoull(strStart, &strEnd, 10);
+    // iss >> binaryHashValue;
+    printf("DECIMAL %llu", binaryHashValue);
     
 
 }
