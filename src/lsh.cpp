@@ -189,13 +189,12 @@ int main(int argc, char const *argv[])
     }
     string myStr = oss.str();
     char *strStart = &(myStr[0]), *strEnd;
-    printf("CSTYLE %s\n", strStart);
-    // istringstream iss(oss.str());
-    // cout << iss.str() << endl;
+
     unsigned long long int binaryHashValue;
-    binaryHashValue = strtoull(strStart, &strEnd, 10);
-    // iss >> binaryHashValue;
+    binaryHashValue = strtoull(strStart, &strEnd, 2);
+
     printf("DECIMAL %llu", binaryHashValue);
+    
     
 
 }
