@@ -19,5 +19,7 @@
 #include <math.h>
 #include <cmath>
 #include <bitset>
+#include <unordered_map>
+#include <tuple>
 
 #endif

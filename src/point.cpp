@@ -3,6 +3,7 @@
 */
 #include "../inc/globals.h"
 #include "../inc/point.h"
+#include "../inc/manhattan.h"
 
 using namespace std;
 
@@ -86,4 +87,19 @@ int Point::getClosestNeighbor(vector<float> allPointNeighborDistances){
     }
     
     return indexOfNeighbor;
+}
+
+tuple<int, float> Point::getClosestNeighborLSH(vector<Point *> allPointsInBucket){
+    float minDistance = numeric_limits<float>::max();
+    int indexOfNN;
+
+    for (unsigned int i = 0; i < allPointsInBucket.size(); i++){
+        float dist = calculate(this, allPointsInBucket[i]);
+        if(dist < minDistance){
+            minDistance = dist;
+            indexOfNN = i;
+        }
+    }
+    
+    return make_tuple(indexOfNN, minDistance);
 }

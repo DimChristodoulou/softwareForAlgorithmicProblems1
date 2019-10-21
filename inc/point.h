@@ -5,6 +5,7 @@
 #define __POINT__
 
 #include "globals.h"
+#include "point.h"
 
 class Point{
     private:
@@ -21,6 +22,7 @@ class Point{
         void printCoordinatesFormatted();
         int getDimension();
         int getClosestNeighbor(std::vector<float>);
+        std::tuple<int, float> getClosestNeighborLSH(std::vector<Point *>);
 };
 
 #endif

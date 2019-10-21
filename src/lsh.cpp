@@ -83,6 +83,7 @@ int main(int argc, char const *argv[])
     int tempPow = 32 / numberOfHiFunctions;
     cout << numberOfHiFunctions << endl;
     unsigned int M = pow(2,tempPow);
+    unordered_map<int, vector<Point*>> hashTable;
 
     //Produce dataset
     vector<Point*> initialDataset = parseFileForPoints(inputFileName, false, NULL);
@@ -120,13 +121,7 @@ int main(int argc, char const *argv[])
     //     cout << "Point " << queryDataset[i]->getPointIdentifier() << " coords ";
     //     queryDataset[i]->printCoordinatesFormatted();
     // }
-
-    cout << "EXPECTED: " << calculate(initialDataset[0], queryDataset[0]) << endl;
-    cout << "EXPECTED: " << calculate(initialDataset[0], queryDataset[1]) << endl;
-    cout << "EXPECTED: " << calculate(initialDataset[1], queryDataset[0]) << endl;
-    cout << "EXPECTED: " << calculate(initialDataset[1], queryDataset[1]) << endl;
     
-
     vector<vector<float>> exhaustiveArray = generateExhaustiveArray(initialDataset, queryDataset);
 
     float w = 0;
@@ -139,7 +134,7 @@ int main(int argc, char const *argv[])
 
     ofstream myfile;
     myfile.open (outputFileName);
-    cout << queryDataset[0]->getPointIdentifier() << endl;
+    //cout << queryDataset[0]->getPointIdentifier() << endl;
     for (i = 0; i < queryDataset.size(); i++){
         int index = queryDataset[i]->getClosestNeighbor(exhaustiveArray[i]);
         myfile << "Nearest neighbor of " 
@@ -153,48 +148,101 @@ int main(int argc, char const *argv[])
 
     myfile.close();
 
-    w = ((float)w/pointsDimension)*4;
-    cout << w << endl;
+    w = ((float)w/pointsDimension)*3;
+    //cout << w << endl;
 
     int d = queryDataset[0]->getDimension();
     
-    cout << "MODULAR EXPO: " << modularExponentiation(m, d-1, M) << endl;
+    //cout << "MODULAR EXPO: " << modularExponentiation(m, d-1, M) << endl;
 
-    cout << "HASH VALUE H1: " << hiHashFunction(initialDataset[0],w,m,M);
+    //cout << "HASH VALUE H1: " << hiHashFunction(initialDataset[0],w,m,M);
 
     int hvalue, length;
     short int binaryDigits = 32/numberOfHiFunctions;
     long long binHValue, tempBinHValue;
 
     ostringstream oss;
-    for (int i = 0; i < numberOfHiFunctions; i++){
-        length = 1;
+    for (j = 0; j < initialDataset.size(); j++){
+    
+        for (int i = 0; i < numberOfHiFunctions; i++){
+            length = 1;
 
-        hvalue = hiHashFunction(initialDataset[0],w,m,M);
-        binHValue = convertDecimalToBinary(hvalue);
-        tempBinHValue = binHValue;
+            hvalue = hiHashFunction(initialDataset[j],w,m,M);
+            binHValue = convertDecimalToBinary(hvalue);
+            tempBinHValue = binHValue;
 
-        while ( tempBinHValue /= 10 )
-            length++;
+            while ( tempBinHValue /= 10 )
+                length++;
 
-        cout << "hvalue " << hvalue << " BINARY " << binHValue << " length " << length << endl;
+            //cout << "hvalue " << hvalue << " BINARY " << binHValue << " length " << length << endl;
 
-        while(length < binaryDigits){
-            oss << '0';
-            cout << oss.str() << endl;
-            length++;
+            while(length < binaryDigits){
+                oss << '0';
+                //cout << oss.str() << endl;
+                length++;
+            }
+            oss << binHValue;
+            //cout << oss.str() << endl;
         }
-        oss << binHValue;
-        cout << oss.str() << endl;
+        string myStr = oss.str();
+        char *strStart = &(myStr[0]), *strEnd;
+        oss.clear();
+        unsigned long long int binaryHashValue;
+        binaryHashValue = strtoull(strStart, &strEnd, 2);
+
+        //printf("DECIMAL %llu", binaryHashValue);
+        
+        //This is the index of the specific point
+        int tokenBucket = binaryHashValue % M;
+        
+        hashTable[tokenBucket].push_back(initialDataset[j]);
     }
-    string myStr = oss.str();
-    char *strStart = &(myStr[0]), *strEnd;
 
-    unsigned long long int binaryHashValue;
-    binaryHashValue = strtoull(strStart, &strEnd, 2);
+    //Simply output hash buckets - for now
+    for (auto& it: hashTable) {
+        cout << "PIDs of bucket " << it.first << " - ";
+        for (i = 0; i < it.second.size(); i++){
+            cout << it.second[i]->getPointIdentifier() << " - ";
+        }
+        cout << endl;
+    }
 
-    printf("DECIMAL %llu", binaryHashValue);
+    cout << endl << "Starting NN Search through LSH" << endl;
+
+    //Actual search for NN
+    for (j = 0; j < queryDataset.size(); j++){
     
-    
+        for (int i = 0; i < numberOfHiFunctions; i++){
+            length = 1;
 
+            hvalue = hiHashFunction(queryDataset[j],w,m,M);
+            binHValue = convertDecimalToBinary(hvalue);
+            tempBinHValue = binHValue;
+
+            while ( tempBinHValue /= 10 )
+                length++;
+
+            //cout << "hvalue " << hvalue << " BINARY " << binHValue << " length " << length << endl;
+
+            while(length < binaryDigits){
+                oss << '0';
+                //cout << oss.str() << endl;
+                length++;
+            }
+            oss << binHValue;
+            //cout << oss.str() << endl;
+        }
+        string myStr = oss.str();
+        char *strStart = &(myStr[0]), *strEnd;
+        oss.clear();
+        unsigned long long int binaryHashValue;
+        binaryHashValue = strtoull(strStart, &strEnd, 2);
+
+        //printf("DECIMAL %llu", binaryHashValue);
+        
+        //This is the index of the specific point
+        int tokenBucket = binaryHashValue % M;
+        tuple<int, float> NNofQueryPoint = queryDataset[j]->getClosestNeighborLSH(hashTable[tokenBucket]);
+        cout << get<0>(NNofQueryPoint) << " - " << get<1>(NNofQueryPoint) << endl;
+    }
 }
