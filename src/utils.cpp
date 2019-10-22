@@ -232,3 +232,15 @@ int hiHashFunction(Point *initialDatasetPoint, int w, unsigned int base, int mod
     return (hashValue%modulo);
 }
 
+short int getBinaryDigitBasedOnHashValue(unordered_map<long long int, short int> memory, long long int hashValue){
+    unordered_map<long long int, short int>::iterator it = memory.begin();
+
+    // Iterate over the map using iterator
+    while(it != memory.end()){
+        if(it->first == hashValue){
+            return it->second;
+        }
+    }
+    memory[hashValue] = rand()%2;
+    return memory[hashValue];
+}

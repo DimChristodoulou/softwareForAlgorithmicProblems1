@@ -17,3 +17,4 @@ std::vector<std::vector<float>> generateExhaustiveArray(std::vector<Point *>, st
 int modularExponentiation(unsigned int, int, int);
 int mod(int, int);
 long long convertDecimalToBinary(int n);
+short int getBinaryDigitBasedOnHashValue(std::unordered_map<long long int, short int>, long long int);

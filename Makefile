@@ -6,7 +6,7 @@ CC = g++
 #  -Wall turns on most, but not all, compiler warnings
 CFLAGS  = -g -std=c++11 -Wall
 
-all: lsh
+all: lsh cube
 
 unittests: tests
 
@@ -16,8 +16,14 @@ tests: manhattan.o utils.o point.o tests.o
 lsh: lsh.o manhattan.o utils.o point.o
 	$(CC) $(CFLAGS) lsh.o manhattan.o utils.o point.o -lm -o exe/lsh
 
+cube: cube.o manhattan.o utils.o point.o
+	$(CC) $(CFLAGS) cube.o manhattan.o utils.o point.o -lm -o exe/cube
+
 lsh.o: src/lsh.cpp
 	$(CC) $(CFLAGS) -c src/lsh.cpp
+
+cube.o: src/cube.cpp
+	$(CC) $(CFLAGS) -c src/cube.cpp
 
 manhattan.o: src/manhattan.cpp
 	$(CC) $(CFLAGS) -c src/manhattan.cpp
