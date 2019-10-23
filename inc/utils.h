@@ -18,3 +18,4 @@ int modularExponentiation(unsigned int, int, int);
 int mod(int, int);
 long long convertDecimalToBinary(int n);
 short int getBinaryDigitBasedOnHashValue(std::unordered_map<long long int, short int>, long long int);
+std::tuple<int, float> getNeighborOutOfPossibleNeighbors(std::vector<std::tuple<int, float>> possibleNeighbors);

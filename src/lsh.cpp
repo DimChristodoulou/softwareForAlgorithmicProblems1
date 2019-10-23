@@ -81,7 +81,6 @@ int main(int argc, char const *argv[])
     //End Argument Handling
 
     int tempPow = 32 / numberOfHiFunctions;
-    cout << numberOfHiFunctions << endl;
     unsigned int M = pow(2,tempPow);
     unordered_map<int, vector<Point*>> hashTable;
 
@@ -105,32 +104,9 @@ int main(int argc, char const *argv[])
         return -1;
     }
     
-    // vector<float> uniformNumbers = generateUniformNumbers(0, w, pointsDimension);
-    // vector<float> randomNumbers = generateRandomNumbersBetween(0, w, pointsDimension);
-    // for (i = 0; i < uniformNumbers.size(); i++){
-    //     cout << uniformNumbers[i] << endl;
-    //     cout << randomNumbers[i] << endl;
-    // }
-
-    // for (i = 0; i < initialDataset.size(); i++){
-    //     cout << "Point " << initialDataset[i]->getPointIdentifier() << " coords ";
-    //     initialDataset[i]->printCoordinatesFormatted();
-    // }
-
-    // for (i = 0; i < queryDataset.size(); i++){
-    //     cout << "Point " << queryDataset[i]->getPointIdentifier() << " coords ";
-    //     queryDataset[i]->printCoordinatesFormatted();
-    // }
-    
     vector<vector<float>> exhaustiveArray = generateExhaustiveArray(initialDataset, queryDataset);
 
     float w = 0;
-    
-    // for (i = 0; i < initialDataset.size(); i++){
-    //     for (j = 0; j < queryDataset.size(); j++){
-    //         cout << exhaustiveArray[i][j] << "\t" << endl;
-    //     }
-    // }
 
     ofstream myfile;
     myfile.open (outputFileName);
@@ -160,89 +136,114 @@ int main(int argc, char const *argv[])
     int hvalue, length;
     short int binaryDigits = 32/numberOfHiFunctions;
     long long binHValue, tempBinHValue;
-
+    vector<unordered_map<int, vector<Point*>>> listOfHashTables;
+    for (int i = 0; i < numberOfHashTables; i++)
+    {
+        unordered_map<int, vector<Point*>> hashTable;
+        listOfHashTables.push_back( hashTable );
+    }
+    
+    clock_t begin = clock();
     ostringstream oss;
     for (j = 0; j < initialDataset.size(); j++){
+
+        for (int k = 0; k < numberOfHashTables; k++){
     
-        for (int i = 0; i < numberOfHiFunctions; i++){
-            length = 1;
+            for (int i = 0; i < numberOfHiFunctions; i++){
+                length = 1;
 
-            hvalue = hiHashFunction(initialDataset[j],w,m,M);
-            binHValue = convertDecimalToBinary(hvalue);
-            tempBinHValue = binHValue;
+                hvalue = hiHashFunction(initialDataset[j],w,m,M);
+                binHValue = convertDecimalToBinary(hvalue);
+                tempBinHValue = binHValue;
 
-            while ( tempBinHValue /= 10 )
-                length++;
+                while ( tempBinHValue /= 10 )
+                    length++;
 
-            //cout << "hvalue " << hvalue << " BINARY " << binHValue << " length " << length << endl;
+                //cout << "hvalue " << hvalue << " BINARY " << binHValue << " length " << length << endl;
 
-            while(length < binaryDigits){
-                oss << '0';
+                while(length < binaryDigits){
+                    oss << '0';
+                    //cout << oss.str() << endl;
+                    length++;
+                }
+                oss << binHValue;
                 //cout << oss.str() << endl;
-                length++;
             }
-            oss << binHValue;
-            //cout << oss.str() << endl;
-        }
-        string myStr = oss.str();
-        char *strStart = &(myStr[0]), *strEnd;
-        oss.clear();
-        unsigned long long int binaryHashValue;
-        binaryHashValue = strtoull(strStart, &strEnd, 2);
+            string myStr = oss.str();
+            char *strStart = &(myStr[0]), *strEnd;
+            oss.clear();
+            unsigned long long int binaryHashValue;
+            binaryHashValue = strtoull(strStart, &strEnd, 2);
 
-        //printf("DECIMAL %llu", binaryHashValue);
-        
-        //This is the index of the specific point
-        int tokenBucket = binaryHashValue % M;
-        
-        hashTable[tokenBucket].push_back(initialDataset[j]);
+            //printf("DECIMAL %llu", binaryHashValue);
+            
+            //This is the index of the specific point
+            int tokenBucket = binaryHashValue % M;
+            
+            listOfHashTables[k][tokenBucket].push_back(initialDataset[j]);
+        }
     }
+    clock_t end = clock();
+    double elapsed_secs = double(end - begin) / CLOCKS_PER_SEC;
+    cout << "Time Passed to perform LSH on Input dataset: " << elapsed_secs << endl;
 
     //Simply output hash buckets - for now
-    for (auto& it: hashTable) {
-        cout << "PIDs of bucket " << it.first << " - ";
-        for (i = 0; i < it.second.size(); i++){
-            cout << it.second[i]->getPointIdentifier() << " - ";
-        }
-        cout << endl;
-    }
+    // for (auto& it: hashTable) {
+    //     cout << "PIDs of bucket " << it.first << " - ";
+    //     for (i = 0; i < it.second.size(); i++){
+    //         cout << it.second[i]->getPointIdentifier() << " - ";
+    //     }
+    //     cout << endl;
+    // }
 
     cout << endl << "Starting NN Search through LSH" << endl;
+    vector<tuple<int, float>> possibleNeighborsVector;
+    tuple<int, float> closestNeighbor;
 
+    begin = clock();
     //Actual search for NN
     for (j = 0; j < queryDataset.size(); j++){
+        possibleNeighborsVector.clear();
+        for(int k=0; k<numberOfHashTables; k++){
     
-        for (int i = 0; i < numberOfHiFunctions; i++){
-            length = 1;
+            for (int i = 0; i < numberOfHiFunctions; i++){
+                length = 1;
 
-            hvalue = hiHashFunction(queryDataset[j],w,m,M);
-            binHValue = convertDecimalToBinary(hvalue);
-            tempBinHValue = binHValue;
+                hvalue = hiHashFunction(queryDataset[j],w,m,M);
+                binHValue = convertDecimalToBinary(hvalue);
+                tempBinHValue = binHValue;
 
-            while ( tempBinHValue /= 10 )
-                length++;
+                while ( tempBinHValue /= 10 )
+                    length++;
 
-            //cout << "hvalue " << hvalue << " BINARY " << binHValue << " length " << length << endl;
+                //cout << "hvalue " << hvalue << " BINARY " << binHValue << " length " << length << endl;
 
-            while(length < binaryDigits){
-                oss << '0';
+                while(length < binaryDigits){
+                    oss << '0';
+                    //cout << oss.str() << endl;
+                    length++;
+                }
+                oss << binHValue;
                 //cout << oss.str() << endl;
-                length++;
             }
-            oss << binHValue;
-            //cout << oss.str() << endl;
-        }
-        string myStr = oss.str();
-        char *strStart = &(myStr[0]), *strEnd;
-        oss.clear();
-        unsigned long long int binaryHashValue;
-        binaryHashValue = strtoull(strStart, &strEnd, 2);
+            string myStr = oss.str();
+            char *strStart = &(myStr[0]), *strEnd;
+            oss.clear();
+            unsigned long long int binaryHashValue;
+            binaryHashValue = strtoull(strStart, &strEnd, 2);
 
-        //printf("DECIMAL %llu", binaryHashValue);
-        
-        //This is the index of the specific point
-        int tokenBucket = binaryHashValue % M;
-        tuple<int, float> NNofQueryPoint = queryDataset[j]->getClosestNeighborLSH(hashTable[tokenBucket]);
-        cout << get<0>(NNofQueryPoint) << " - " << get<1>(NNofQueryPoint) << endl;
+            //printf("DECIMAL %llu", binaryHashValue);
+            
+            //This is the index of the specific point
+            int tokenBucket = binaryHashValue % M;
+            tuple<int, float> NNofQueryPoint = queryDataset[j]->getClosestNeighborLSH(listOfHashTables[k][tokenBucket]);
+            possibleNeighborsVector.push_back(NNofQueryPoint);
+            //cout << get<0>(NNofQueryPoint) << " - " << get<1>(NNofQueryPoint) << endl;
+        }
+        closestNeighbor = getNeighborOutOfPossibleNeighbors(possibleNeighborsVector);
+        cout << " Query Point " << j << "'s closest neighbor is " << get<0>(closestNeighbor) << " with distance " << get<1>(closestNeighbor) << endl;
     }
+    end = clock();
+    elapsed_secs = double(end - begin) / CLOCKS_PER_SEC;
+    cout << "Time Passed to classify query data: " << elapsed_secs << endl;
 }

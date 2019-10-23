@@ -190,7 +190,7 @@ int mod(int a, int b) {
 
 long long convertDecimalToBinary(int n){
     long long binaryNumber = 0;
-    int remainder, i = 1, step = 1;
+    int remainder, i = 1;
     while (n!=0){
         remainder = n%2;
         n /= 2;
@@ -243,4 +243,20 @@ short int getBinaryDigitBasedOnHashValue(unordered_map<long long int, short int>
     }
     memory[hashValue] = rand()%2;
     return memory[hashValue];
+}
+
+tuple<int, float> getNeighborOutOfPossibleNeighbors(vector<tuple<int, float>> possibleNeighbors){
+    float minDistance = numeric_limits<float>::max();
+    int index;
+    float currentDist;
+
+    for (int i = 0; i < possibleNeighbors.size(); i++){
+        currentDist = get<1>(possibleNeighbors[i]);
+        if(currentDist < minDistance){
+            minDistance = currentDist;
+            index = i;
+        }
+    }
+    return possibleNeighbors[index];
+    
 }

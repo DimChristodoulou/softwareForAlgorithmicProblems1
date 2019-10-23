@@ -5,8 +5,7 @@
  * @version 0.1 - Build 2.1
  * @date 2019-10-04
  * 
- * HOW TO INVOKE FOR SAMPLE : ./exe/cube -d datasets/sample1.txt -o output.txt -q querysets/sample1.txt -k 4 -L 5
- * HOW TO INVOKE FOR SAMPLE : ./exe/cube -d datasets/input_small_id -o output.txt -q querysets/query_small_id -k 4 -L 5
+ * HOW TO INVOKE FOR SAMPLE : ./exe/cube -d datasets/input_small_id -o output.txt -q querysets/query_small_id -k 3 -M 10 -probes 2
  * 
  * @copyright Copyright (c) 2019
  * 
@@ -27,8 +26,8 @@ int main(int argc, char const *argv[]){
     srand (time(NULL));
     unsigned int m = pow(2,32)-5;
     unsigned int i, j;
-    int count, numberOfHiFunctions, numberOfHashTables;
-    FILE *inputFile, *outputFile, *queryFile;
+    int count, M, probes, dimension;
+    
     string inputFileName, outputFileName, queryFileName;
 
     //Argument Handling
@@ -43,13 +42,13 @@ int main(int argc, char const *argv[]){
         queryFileName = count != -1 ? argv[count+1] : NULL;
 
         count = strArraySearch(argv, argc, "-k");
-        numberOfHiFunctions = count != -1 ? stoi(argv[count+1]) : 0;
+        dimension = count != -1 ? stoi(argv[count+1]) : 0;
 
-        count = strArraySearch(argv, argc, "-L");
-        numberOfHashTables = count != -1 ? stoi(argv[count+1]) : 0;
+        count = strArraySearch(argv, argc, "-M");
+        M = count != -1 ? stoi(argv[count+1]) : 0;
 
         count = strArraySearch(argv, argc, "-probes");
-        numberOfHashTables = count != -1 ? stoi(argv[count+1]) : NULL;
+        probes = count != -1 ? stoi(argv[count+1]) : 0;
     }
     else if (argc == __MINIMAL_ARGUMENTS){
         cout << "You haven't provided an input file location. Please enter one now: ";
@@ -63,8 +62,9 @@ int main(int argc, char const *argv[]){
         count = strArraySearch(argv, argc, "-o");
         outputFileName = count != -1 ? argv[count+1] : NULL;
 
-        numberOfHiFunctions = 4;
-        numberOfHashTables = 5;
+        dimension = 3;
+        M = 10;
+        probes = 2;
     }
     else{
         cerr << "Invalid number of arguments provided. Exiting." << endl;
@@ -74,15 +74,15 @@ int main(int argc, char const *argv[]){
     if(inputFileName.empty() 
         || outputFileName.empty()
         || queryFileName.empty()
-        || numberOfHiFunctions == 0 
-        || numberOfHashTables == 0){
+        || dimension == 0 
+        || probes == 0
+        || M == 0){
             cerr << "You have provided invalid arguments. Exiting." << endl;
     }
 
-    int tempPow = 32 / numberOfHiFunctions;
-    cout << numberOfHiFunctions << endl;
-    unsigned int M = pow(2,tempPow);
+    cout << dimension << endl;
     unordered_map<int, vector<Point*>> hashTable;
+    ofstream outputFile;
 
     //Produce dataset
     vector<Point*> initialDataset = parseFileForPoints(inputFileName, false, NULL);
@@ -105,15 +105,15 @@ int main(int argc, char const *argv[]){
     }
 
     int hvalue, length;
-    short int binaryDigits = 32/numberOfHiFunctions;
+    short int binaryDigits = 32/dimension;
     long long binHValue, tempBinHValue;
 
+    clock_t begin = clock();
     vector<vector<float>> exhaustiveArray = generateExhaustiveArray(initialDataset, queryDataset);
 
     float w = 0;
-
     ofstream myfile;
-    myfile.open (outputFileName);
+    myfile.open ("exhaustive.txt");
     for (i = 0; i < queryDataset.size(); i++){
         int index = queryDataset[i]->getClosestNeighbor(exhaustiveArray[i]);
         myfile << "Nearest neighbor of " 
@@ -126,22 +126,24 @@ int main(int argc, char const *argv[]){
     }
 
     myfile.close();
+    clock_t end = clock();
+    double elapsed_secs = double(end - begin) / CLOCKS_PER_SEC;
+    outputFile << "Time passed to calculate W: " << elapsed_secs << endl;
 
     w = ((float)w/pointsDimension)*3;
-    short int fHashValue;
-    unsigned int dEntoned;
-    unsigned int k;
+    unsigned short int finalHashValue;
+    int k;
 
-    for(k=0; k < dEntoned; k++){
-
-    }
-
-    ostringstream oss;
+    unordered_map<long long int, short int> fMemory;
+    ostringstream oss, binaryOss;
+    begin = clock();
     for (j = 0; j < initialDataset.size(); j++){
+        finalHashValue = 0;
+        binaryOss.str("");
 
-        for(k=0; k < dEntoned; k++){
-    
-            for (int i = 0; i < numberOfHiFunctions; i++){
+        for(k=0; k < dimension; k++){
+            fMemory.clear();            
+            for (int i = 0; i < dimension; i++){
                 length = 1;
 
                 hvalue = hiHashFunction(initialDataset[j],w,m,M);
@@ -167,10 +169,76 @@ int main(int argc, char const *argv[]){
             * that initially assigns a random value between 0 and 1 but stores the binary hash value + the number it generated
             * and produces this number every time we get this hash value.
             */
-
-        
+            finalHashValue = getBinaryDigitBasedOnHashValue(fMemory, binaryHashValue);
+            binaryOss << to_string(finalHashValue);
         }
 
-    }
+        string myStr = oss.str();
+        char *strStart = &(myStr[0]), *strEnd;
+        oss.clear();
+        unsigned long long int binaryHashValue;
+        binaryHashValue = strtoull(strStart, &strEnd, 2);
+        hashTable[binaryHashValue].push_back(initialDataset[j]);
 
+    }
+    end = clock();
+    elapsed_secs = double(end - begin) / CLOCKS_PER_SEC;
+    outputFile << "Time Passed to perform Cube on Input dataset: " << elapsed_secs << endl;
+
+    cout << endl << "Starting NN Search through Cube" << endl;
+    tuple<int, float> closestNeighbor;
+
+    begin = clock();
+    //Actual search for NN
+    for (j = 0; j < initialDataset.size(); j++){
+        finalHashValue = 0;
+        binaryOss.str("");
+
+        for(k=0; k < dimension; k++){
+            fMemory.clear();            
+            for (int i = 0; i < dimension; i++){
+                length = 1;
+
+                hvalue = hiHashFunction(initialDataset[j],w,m,M);
+                binHValue = convertDecimalToBinary(hvalue);
+                tempBinHValue = binHValue;
+
+                while ( tempBinHValue /= 10 )
+                    length++;
+
+                while(length < binaryDigits){
+                    oss << '0';
+                    length++;
+                }
+                oss << binHValue;
+            }
+            string myStr = oss.str();
+            char *strStart = &(myStr[0]), *strEnd;
+            oss.clear();
+            unsigned long long int binaryHashValue;
+            binaryHashValue = strtoull(strStart, &strEnd, 2);
+
+            /* HERE IS THE DIFFERENCE BETWEEN LSH AND HYPERCUBE - in hypercube we pass the binary hash value in a function
+            * that initially assigns a random value between 0 and 1 but stores the binary hash value + the number it generated
+            * and produces this number every time we get this hash value.
+            */
+            finalHashValue = getBinaryDigitBasedOnHashValue(fMemory, binaryHashValue);
+            binaryOss << to_string(finalHashValue);
+        }
+
+        string myStr = oss.str();
+        char *strStart = &(myStr[0]), *strEnd;
+        oss.clear();
+        unsigned long long int binaryHashValue;
+        binaryHashValue = strtoull(strStart, &strEnd, 2);
+        tuple<int, float> closestNeighbor = queryDataset[j]->getClosestNeighborLSH(hashTable[binaryHashValue]);
+
+        // int tokenBucket = binaryHashValue % M;
+        // tuple<int, float> NNofQueryPoint = queryDataset[j]->getClosestNeighborLSH(listOfHashTables[k][tokenBucket]);
+        outputFile << " Query Point " << j << "'s closest neighbor is " << get<0>(closestNeighbor) << " with distance " << get<1>(closestNeighbor) << endl;
+    }
+    end = clock();
+    elapsed_secs = double(end - begin) / CLOCKS_PER_SEC;
+    outputFile << "Time Passed to classify query data: " << elapsed_secs << endl;
+    outputFile.close();
 }
