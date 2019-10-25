@@ -64,6 +64,11 @@ void Point::printCoordinatesFormatted(){
     cout << endl;
 }
 
+/**
+ * @brief Gets the dimension of a Point object.
+ * 
+ * @return int The Point's dimension.
+ */
 int Point::getDimension(){
     return this->getCoordinates().size();
 }
@@ -89,6 +94,12 @@ int Point::getClosestNeighbor(vector<float> allPointNeighborDistances){
     return indexOfNeighbor;
 }
 
+/**
+ * @brief Gets and returns the closest neighbor to the parent Point from a bucket of Point objects.
+ * 
+ * @param allPointsInBucket A vector of all Points in the chosen bucket.
+ * @return tuple<int, float> A tuple that contains an int, the index of the closest neighbor and the distance between the parent and that neighbor.
+ */
 tuple<int, float> Point::getClosestNeighborLSH(vector<Point *> allPointsInBucket){
     float minDistance = numeric_limits<float>::max();
     int indexOfNN;

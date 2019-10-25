@@ -128,9 +128,12 @@ vector<float> generateUniformNumbers(int lowBound, int highBound, int amountOfOu
 }
 
 /**
- * @brief 
+ * @brief Generates random numbers between a low and high bound.
  * 
- * @return vector<float> 
+ * @param lowBound The lowest possible number.
+ * @param highBound The highest possible number.
+ * @param amountOfOutputtedNums The amount of numbers that will be produced.
+ * @return vector<float> A vector that contains the random numbers.
  */
 vector<float> generateRandomNumbersBetween(int lowBound, int highBound, int amountOfOutputtedNums){
     vector<float> generatedNumbers;
@@ -165,9 +168,9 @@ vector<vector<float>> generateExhaustiveArray(vector<Point *> initialDataset, ve
 /**
  * @brief Modular Exponentiation
  * 
- * @param base 
- * @param exponent
- * @param modulus
+ * @param base The base value.
+ * @param exponent The exponent.
+ * @param modulus The amount of shifting we need
  * @return int 
  */
 int modularExponentiation(unsigned int base, int exponent, int modulus){
@@ -184,10 +187,24 @@ int modularExponentiation(unsigned int base, int exponent, int modulus){
     return x;
 }
 
+/**
+ * @brief A sign-safe modulo function
+ * 
+ * @param a Modulo left operand.
+ * @param b Modulo right operand.
+ * @return int If a is positive, this acts exactly like the normal mod operation. 
+ * Otherwise, this will return the negative modulo of a number, e.g. (-2)%5=3
+ */
 int mod(int a, int b) {
     return (abs(a) % b + b) % b;
 }
 
+/**
+ * @brief Helper function to convert an integer to a binary.
+ * 
+ * @param n The decimal we want to convert.
+ * @return long long The binary that was converted.
+ */
 long long convertDecimalToBinary(int n){
     long long binaryNumber = 0;
     int remainder, i = 1;
@@ -214,24 +231,25 @@ int hiHashFunction(Point *initialDatasetPoint, int w, unsigned int base, int mod
 
     vector<float> xi = initialDatasetPoint->getCoordinates();
     vector<float> si = generateRandomNumbersBetween(0, w, dim);
-    // for (size_t i = 0; i < si.size(); i++)
-    // {
-    //     cout << si[i] << " ";
-    // }
-    // cout << endl << endl;
     
     for (int i = 0; i < dim; i++){
         int modulus = modularExponentiation(base, dim-1-i, modulo);
         int lvalue = int ( floor( (xi[i]-si[i]) /w ));
         hashValue += ( mod(lvalue, modulo) *modulus) % modulo;
-        //cout << "MODULUS " << modulus << " HASHVALUE " << hashValue << " FLOOR "  << floor(xi[i] - si[i]) << " w " << w << " lvalue " << lvalue << endl;
     }
     
-    // cout << hashValue << " modulo " << modulo << endl;
-    // cout << "return " << (hashValue % modulo) << endl;
     return (hashValue%modulo);
 }
 
+/**
+ * @brief Gets a Binary Digit Based On the passed Hash Value. Initially has a 50% chance of providing 0 or 1.
+ * However the function has a map of key value pairs, with the key being the hash value and the value being the actual
+ * binary digit. In subsequent calls, the function looks up the hash value. If it's found, the in-memory value is returned.
+ * 
+ * @param memory An unordered map of long long int keys and short int values.
+ * @param hashValue The value we want to produce the binary digit from.
+ * @return short int A binary digit, 0 or 1.
+ */
 short int getBinaryDigitBasedOnHashValue(unordered_map<long long int, short int> memory, long long int hashValue){
     unordered_map<long long int, short int>::iterator it = memory.begin();
 
@@ -245,6 +263,14 @@ short int getBinaryDigitBasedOnHashValue(unordered_map<long long int, short int>
     return memory[hashValue];
 }
 
+/**
+ * @brief Get the closest neighbor out of a vector of possible neighbors
+ * Only applicable in LSH, since Hypercube does not use multiple hash tables.
+ * 
+ * @param possibleNeighbors A vector of <int, float> tuples, with the int being the index of the neighbor 
+ * and the float the distance between this neighbor and the query point.
+ * @return tuple<int, float> The closest neighbor out of the possible ones.
+ */
 tuple<int, float> getNeighborOutOfPossibleNeighbors(vector<tuple<int, float>> possibleNeighbors){
     float minDistance = numeric_limits<float>::max();
     int index;

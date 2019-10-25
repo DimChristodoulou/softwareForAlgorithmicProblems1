@@ -52,3 +52,7 @@ TEST_CASE( "Unit Test for function strArraySearch [src/utils.cpp]", "[strArraySe
     char const *testCase4[] = {"duck", "-d", "dog", "-d"};
     REQUIRE (strArraySearch(testCase4, 4, "-d") == 1);
 }
+
+TEST_CASE( "Unit Test for function modularExponentiation [src/utils.cpp]", "[modularExponentiation]" ){
+    
+}
