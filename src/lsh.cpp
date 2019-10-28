@@ -6,7 +6,7 @@
  * @date 2019-10-04
  * 
  * HOW TO INVOKE FOR SAMPLE : ./exe/lsh -d datasets/sample1.txt -o output.txt -q querysets/sample1.txt -k 4 -L 5
- * HOW TO INVOKE FOR SAMPLE : ./exe/lsh -d datasets/input_small_id -o output.txt -q querysets/query_small_id -k 4 -L 5
+ * HOW TO INVOKE FOR SAMPLE : ./exe/lsh -d datasets/input_small_id -o outputLSH.txt -q querysets/query_small_id -k 4 -L 5
  * 
  * @copyright Copyright (c) 2019
  * 
@@ -108,8 +108,8 @@ int main(int argc, char const *argv[])
 
     float w = 0;
 
-    ofstream myfile;
-    myfile.open (outputFileName);
+    ofstream myfile, outputFile;
+    myfile.open ("exhaustive.txt");
     //cout << queryDataset[0]->getPointIdentifier() << endl;
     for (i = 0; i < queryDataset.size(); i++){
         int index = queryDataset[i]->getClosestNeighbor(exhaustiveArray[i]);
@@ -200,10 +200,13 @@ int main(int argc, char const *argv[])
     vector<tuple<int, float>> possibleNeighborsVector;
     tuple<int, float> closestNeighbor;
 
+    outputFile.open(outputFileName);
+
     begin = clock();
     //Actual search for NN
     for (j = 0; j < queryDataset.size(); j++){
         possibleNeighborsVector.clear();
+        clock_t begin2 = clock();
         for(int k=0; k<numberOfHashTables; k++){
     
             for (int i = 0; i < numberOfHiFunctions; i++){
@@ -241,9 +244,24 @@ int main(int argc, char const *argv[])
             //cout << get<0>(NNofQueryPoint) << " - " << get<1>(NNofQueryPoint) << endl;
         }
         closestNeighbor = getNeighborOutOfPossibleNeighbors(possibleNeighborsVector);
-        cout << " Query Point " << j << "'s closest neighbor is " << get<0>(closestNeighbor) << " with distance " << get<1>(closestNeighbor) << endl;
+        clock_t end2 = clock();
+        double elapsed_secs2 = double(end2 - begin2) / CLOCKS_PER_SEC;
+
+        clock_t begin3 = clock();
+        int index = queryDataset[j]->getClosestNeighbor(exhaustiveArray[j]);
+        clock_t end3 = clock();
+        double elapsed_secs3 = double(end3 - begin3) / CLOCKS_PER_SEC;
+
+        outputFile << "Query: " << j << endl;
+        outputFile << "Nearest Neighbor: " << get<0>(closestNeighbor) << endl;
+        outputFile << "distanceLSH: " << get<1>(closestNeighbor) << endl;
+        outputFile << "distanceTrue: " << exhaustiveArray[j][index] << endl;
+        outputFile << "tLSH: " << elapsed_secs2 << endl;
+        outputFile << "tTrue: " << elapsed_secs3 << endl << endl;
+
     }
     end = clock();
     elapsed_secs = double(end - begin) / CLOCKS_PER_SEC;
     cout << "Time Passed to classify query data: " << elapsed_secs << endl;
+    outputFile.close();
 }

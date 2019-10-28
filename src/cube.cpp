@@ -5,7 +5,7 @@
  * @version 0.1 - Build 2.1
  * @date 2019-10-04
  * 
- * HOW TO INVOKE FOR SAMPLE : ./exe/cube -d datasets/input_small_id -o output.txt -q querysets/query_small_id -k 3 -M 10 -probes 2
+ * HOW TO INVOKE FOR SAMPLE : ./exe/cube -d datasets/input_small_id -o outputCUBE.txt -q querysets/query_small_id -k 3 -M 10 -probes 2
  * 
  * @copyright Copyright (c) 2019
  * 
@@ -83,7 +83,7 @@ int main(int argc, char const *argv[]){
     cout << dimension << endl;
     unordered_map<int, vector<Point*>> hashTable;
     ofstream outputFile;
-
+    outputFile.open (outputFileName);
     //Produce dataset
     vector<Point*> initialDataset = parseFileForPoints(inputFileName, false, NULL);
     if(initialDataset.empty()){
@@ -193,7 +193,7 @@ int main(int argc, char const *argv[]){
     for (j = 0; j < initialDataset.size(); j++){
         finalHashValue = 0;
         binaryOss.str("");
-
+        clock_t begin2 = clock();
         for(k=0; k < dimension; k++){
             fMemory.clear();            
             for (int i = 0; i < dimension; i++){
@@ -232,10 +232,20 @@ int main(int argc, char const *argv[]){
         unsigned long long int binaryHashValue;
         binaryHashValue = strtoull(strStart, &strEnd, 2);
         tuple<int, float> closestNeighbor = queryDataset[j]->getClosestNeighborLSH(hashTable[binaryHashValue]);
+        clock_t end2 = clock();
+        double elapsed_secs2 = double(end2 - begin2) / CLOCKS_PER_SEC;
 
-        // int tokenBucket = binaryHashValue % M;
-        // tuple<int, float> NNofQueryPoint = queryDataset[j]->getClosestNeighborLSH(listOfHashTables[k][tokenBucket]);
-        outputFile << " Query Point " << j << "'s closest neighbor is " << get<0>(closestNeighbor) << " with distance " << get<1>(closestNeighbor) << endl;
+        clock_t begin3 = clock();
+        int index = queryDataset[j]->getClosestNeighbor(exhaustiveArray[j]);
+        clock_t end3 = clock();
+        double elapsed_secs3 = double(end3 - begin3) / CLOCKS_PER_SEC;
+
+        outputFile << "Query: " << j << endl;
+        outputFile << "Nearest Neighbor: " << get<0>(closestNeighbor) << endl;
+        outputFile << "distanceLSH: " << get<1>(closestNeighbor) << endl;
+        outputFile << "distanceTrue: " << exhaustiveArray[j][index] << endl;
+        outputFile << "tLSH: " << elapsed_secs2 << endl;
+        outputFile << "tTrue: " << elapsed_secs3 << endl << endl;
     }
     end = clock();
     elapsed_secs = double(end - begin) / CLOCKS_PER_SEC;

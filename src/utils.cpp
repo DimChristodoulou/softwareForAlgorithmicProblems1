@@ -4,6 +4,7 @@
 #include "../inc/globals.h"
 #include "../inc/point.h"
 #include "../inc/manhattan.h"
+#include "../inc/curve.h"
 
 #define __HASH_PARAMETER 13
 
@@ -29,7 +30,7 @@ long long unsigned generateRandomW(){
  * @return vector<Point*> The parsed text file represented in Point object vector.
  */
 vector<Point*> parseFileForPoints(string filePath, bool isSearchDataset = false, double *radius = NULL){
-    cout << filePath << endl;
+
     ifstream pointsFile;
     pointsFile.open(filePath);
     vector<Point*> dataset;
@@ -286,3 +287,102 @@ tuple<int, float> getNeighborOutOfPossibleNeighbors(vector<tuple<int, float>> po
     return possibleNeighbors[index];
     
 }
+
+
+/***************************************************************************************************************************************************************
+ ************************************************************* CURVE FUNCTIONS START FROM HERE *****************************************************************
+ ***************************************************************************************************************************************************************/
+
+vector<Curve*> parseFileForCurvePoints(string fileName){
+
+    ifstream pointsFile;
+    pointsFile.open(fileName);
+    vector<Curve*> dataset;
+    int numberOfPoints;
+
+    setprecision(15);
+
+    if(pointsFile.fail()){
+        cerr << "Error: " << strerror(errno) << endl;
+    }
+    if(pointsFile.is_open()){
+        string fileLine, currentPointIdentifier;
+        vector<string> delimitedResult;
+        vector<tuple<float, float>> coords;
+        float x,y;
+
+        while (getline(pointsFile, fileLine)){
+            istringstream iss(fileLine);
+            vector<string> results(istream_iterator<string>{iss}, istream_iterator<string>());
+            currentPointIdentifier = results[0];
+            numberOfPoints = stoi(results[1]);
+
+            for (unsigned int i = 2; i < results.size(); i++){
+                delimitedResult.clear();
+                if(i%2==0){
+                    results[i] = results[i].substr(1, results[i].size() - 2);
+                    x = stof(results[i]);
+                }
+                else{
+                    results[i].erase(results[i].size() - 1);
+                    y = stof(results[i]);
+                    coords.push_back( make_tuple(x, y) );
+                    //cout << x << " - " << y << endl;
+                }
+                
+                //cout << endl;
+            }
+
+            Curve *currentPoint = new Curve(currentPointIdentifier, numberOfPoints, coords);
+            dataset.push_back(currentPoint);
+            coords.clear();
+        }
+    }
+
+    if(!dataset.empty()){
+        return dataset;
+    }
+    return {};
+
+}
+
+int getMaxDimension(vector<Curve*> dataset){
+
+    for (size_t i = 0; i < count; i++)
+    {
+        /* code */
+    }
+    
+}
+
+vector<float> generateUniformTVector(int dimension){
+    static default_random_engine generator;
+    static normal_distribution<float> distribution(0.0, 1);
+    vector<float> tVector;
+    for (size_t i = 0; i < dimension; i++)
+    {
+        tVector.push_back(distribution(generator));
+    }
+    return tVector;
+}
+
+// void createGridCurve(vector v){		//Create gric_curve
+// 	N *vec = new N();
+// 	double prev;
+// 	//for each point
+// 	for(unsigned int k=0;k<v.size();k++){
+// 		unsigned int size = v[k].size();
+// 		if(size != t.size()){
+// 			cerr << "We expected " <<t.size()<<"-dimensional curve and get " << size <<"-dimensional curve!"<<endl;
+// 			exit(1);
+// 		}
+// 		//for each dimension find the point on grid and shift the point
+// 		for(unsigned int i=0;i<size;i++){
+// 			double temp = (int)(((v[k])[i]+0.5)/this->delta) + this->t[i];
+// 			if(i == 0 || prev != temp)
+// 				vec->push_back(temp);	//If point is not equal with previous, push it to the vector
+// 			prev = temp;
+// 		}
+// 	}
+// 	return vec;							//Return the grid_curve
+// }

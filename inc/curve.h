@@ -3,20 +3,24 @@
 
 #include "globals.h"
 
+class Curve
+{
+	private:
+		/* data */
+		std::string _curveId;
+		int _numberOfPoints;
+		std::vector<std::tuple<float, float>> _curvePoints;
 
-template <typename Curve,typename GridCurve>
-class Curve{
-	Curve* curve;
-	GridCurve* grid_curve;
-	char* CurveID;
-public:
-	Curve(Curve*, GridCurve*,char*);
-	~Curve();
-	bool Compare_Grid_Curve(Curve*);
-	const GridCurve & Get_Grid_Curve();
-	Curve& Get_Curve();
-	char* Get_CurveId();
-	void Destroy();
+	public:
+		Curve(std::string, int, std::vector<std::tuple<float, float>>);
+		~Curve();
+		std::string getCurveId();
+		void setCurveId(std::string data);
+		int getNumberOfPoints();
+		void setNumberOfPoints(int data);
+		std::vector<std::tuple<float, float>> getCurvePoints();
+		void setCurvePoints(std::vector<std::tuple<float, float>> data);
 };
+
 
 #endif

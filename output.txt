@@ -1,100 +1,602 @@
-Nearest neighbor of 1 is 2177 with distance 2064
-Nearest neighbor of 2 is 2782 with distance 2045
-Nearest neighbor of 3 is 9973 with distance 1619
-Nearest neighbor of 4 is 9844 with distance 1593
-Nearest neighbor of 5 is 5165 with distance 1680
-Nearest neighbor of 6 is 1240 with distance 2180
-Nearest neighbor of 7 is 2775 with distance 1946
-Nearest neighbor of 8 is 5869 with distance 1149
-Nearest neighbor of 9 is 9629 with distance 1791
-Nearest neighbor of 10 is 4720 with distance 1834
-Nearest neighbor of 11 is 694 with distance 2067
-Nearest neighbor of 12 is 4698 with distance 1280
-Nearest neighbor of 13 is 507 with distance 1811
-Nearest neighbor of 14 is 9816 with distance 1829
-Nearest neighbor of 15 is 798 with distance 2136
-Nearest neighbor of 16 is 410 with distance 1973
-Nearest neighbor of 17 is 471 with distance 1963
-Nearest neighbor of 18 is 4097 with distance 1987
-Nearest neighbor of 19 is 904 with distance 1964
-Nearest neighbor of 20 is 9807 with distance 1754
-Nearest neighbor of 21 is 7028 with distance 1239
-Nearest neighbor of 22 is 4491 with distance 486
-Nearest neighbor of 23 is 4958 with distance 1159
-Nearest neighbor of 24 is 4673 with distance 1520
-Nearest neighbor of 25 is 4631 with distance 1068
-Nearest neighbor of 26 is 6423 with distance 1919
-Nearest neighbor of 27 is 6828 with distance 1251
-Nearest neighbor of 28 is 5964 with distance 1166
-Nearest neighbor of 29 is 6828 with distance 1504
-Nearest neighbor of 30 is 5454 with distance 734
-Nearest neighbor of 31 is 4778 with distance 1819
-Nearest neighbor of 32 is 5560 with distance 741
-Nearest neighbor of 33 is 5301 with distance 1210
-Nearest neighbor of 34 is 8151 with distance 2368
-Nearest neighbor of 35 is 7059 with distance 1951
-Nearest neighbor of 36 is 5842 with distance 969
-Nearest neighbor of 37 is 5843 with distance 865
-Nearest neighbor of 38 is 5185 with distance 1241
-Nearest neighbor of 39 is 5501 with distance 995
-Nearest neighbor of 40 is 5075 with distance 1200
-Nearest neighbor of 41 is 8308 with distance 1106
-Nearest neighbor of 42 is 4644 with distance 1442
-Nearest neighbor of 43 is 5225 with distance 1629
-Nearest neighbor of 44 is 6303 with distance 1275
-Nearest neighbor of 45 is 8616 with distance 1483
-Nearest neighbor of 46 is 7877 with distance 1628
-Nearest neighbor of 47 is 5881 with distance 646
-Nearest neighbor of 48 is 5642 with distance 2446
-Nearest neighbor of 49 is 5214 with distance 968
-Nearest neighbor of 50 is 5085 with distance 849
-Nearest neighbor of 51 is 5013 with distance 1130
-Nearest neighbor of 52 is 6124 with distance 848
-Nearest neighbor of 53 is 5674 with distance 1188
-Nearest neighbor of 54 is 8613 with distance 1219
-Nearest neighbor of 55 is 6159 with distance 979
-Nearest neighbor of 56 is 5831 with distance 1042
-Nearest neighbor of 57 is 4904 with distance 1436
-Nearest neighbor of 58 is 5212 with distance 1176
-Nearest neighbor of 59 is 7238 with distance 460
-Nearest neighbor of 60 is 6835 with distance 619
-Nearest neighbor of 61 is 5279 with distance 1209
-Nearest neighbor of 62 is 8403 with distance 732
-Nearest neighbor of 63 is 6561 with distance 832
-Nearest neighbor of 64 is 6322 with distance 627
-Nearest neighbor of 65 is 5636 with distance 980
-Nearest neighbor of 66 is 6406 with distance 1085
-Nearest neighbor of 67 is 5391 with distance 1189
-Nearest neighbor of 68 is 6858 with distance 1205
-Nearest neighbor of 69 is 7218 with distance 1251
-Nearest neighbor of 70 is 5878 with distance 1943
-Nearest neighbor of 71 is 6125 with distance 280
-Nearest neighbor of 72 is 5827 with distance 1254
-Nearest neighbor of 73 is 934 with distance 2210
-Nearest neighbor of 74 is 6854 with distance 1573
-Nearest neighbor of 75 is 7365 with distance 986
-Nearest neighbor of 76 is 6554 with distance 1416
-Nearest neighbor of 77 is 7904 with distance 1648
-Nearest neighbor of 78 is 8579 with distance 2177
-Nearest neighbor of 79 is 9209 with distance 1551
-Nearest neighbor of 80 is 8070 with distance 743
-Nearest neighbor of 81 is 7452 with distance 987
-Nearest neighbor of 82 is 3087 with distance 1969
-Nearest neighbor of 83 is 91 with distance 2001
-Nearest neighbor of 84 is 6006 with distance 1161
-Nearest neighbor of 85 is 8895 with distance 1359
-Nearest neighbor of 86 is 8726 with distance 1753
-Nearest neighbor of 87 is 9152 with distance 1673
-Nearest neighbor of 88 is 7723 with distance 683
-Nearest neighbor of 89 is 7099 with distance 399
-Nearest neighbor of 90 is 7628 with distance 690
-Nearest neighbor of 91 is 9259 with distance 310
-Nearest neighbor of 92 is 8897 with distance 1916
-Nearest neighbor of 93 is 8357 with distance 954
-Nearest neighbor of 94 is 8979 with distance 1433
-Nearest neighbor of 95 is 8420 with distance 977
-Nearest neighbor of 96 is 1186 with distance 2188
-Nearest neighbor of 97 is 7513 with distance 2146
-Nearest neighbor of 98 is 8826 with distance 1515
-Nearest neighbor of 99 is 5811 with distance 787
-Nearest neighbor of 100 is 8083 with distance 1246
+Time passed to calculate W: 2.10938
+Time Passed to perform Cube on Input dataset: 16.7344
+Query: 0
+Nearest Neighbor: 2176
+distanceLSH: 2064
+distanceTrue: 2064
+tLSH: 0.03125
+tTrue: 0
+Query: 1
+Nearest Neighbor: 2781
+distanceLSH: 2045
+distanceTrue: 2045
+tLSH: 0.015625
+tTrue: 0
+Query: 2
+Nearest Neighbor: 9972
+distanceLSH: 1619
+distanceTrue: 1619
+tLSH: 0.03125
+tTrue: 0
+Query: 3
+Nearest Neighbor: 9843
+distanceLSH: 1593
+distanceTrue: 1593
+tLSH: 0.015625
+tTrue: 0
+Query: 4
+Nearest Neighbor: 5164
+distanceLSH: 1680
+distanceTrue: 1680
+tLSH: 0.03125
+tTrue: 0
+Query: 5
+Nearest Neighbor: 1239
+distanceLSH: 2180
+distanceTrue: 2180
+tLSH: 0.015625
+tTrue: 0
+Query: 6
+Nearest Neighbor: 2774
+distanceLSH: 1946
+distanceTrue: 1946
+tLSH: 0.03125
+tTrue: 0
+Query: 7
+Nearest Neighbor: 5868
+distanceLSH: 1149
+distanceTrue: 1149
+tLSH: 0.03125
+tTrue: 0
+Query: 8
+Nearest Neighbor: 9628
+distanceLSH: 1791
+distanceTrue: 1791
+tLSH: 0.015625
+tTrue: 0
+Query: 9
+Nearest Neighbor: 4719
+distanceLSH: 1834
+distanceTrue: 1834
+tLSH: 0.03125
+tTrue: 0
+Query: 10
+Nearest Neighbor: 693
+distanceLSH: 2067
+distanceTrue: 2067
+tLSH: 0.015625
+tTrue: 0
+Query: 11
+Nearest Neighbor: 4697
+distanceLSH: 1280
+distanceTrue: 1280
+tLSH: 0.03125
+tTrue: 0
+Query: 12
+Nearest Neighbor: 506
+distanceLSH: 1811
+distanceTrue: 1811
+tLSH: 0.015625
+tTrue: 0
+Query: 13
+Nearest Neighbor: 9815
+distanceLSH: 1829
+distanceTrue: 1829
+tLSH: 0.03125
+tTrue: 0
+Query: 14
+Nearest Neighbor: 797
+distanceLSH: 2136
+distanceTrue: 2136
+tLSH: 0.03125
+tTrue: 0
+Query: 15
+Nearest Neighbor: 409
+distanceLSH: 1973
+distanceTrue: 1973
+tLSH: 0.015625
+tTrue: 0
+Query: 16
+Nearest Neighbor: 470
+distanceLSH: 1963
+distanceTrue: 1963
+tLSH: 0.03125
+tTrue: 0
+Query: 17
+Nearest Neighbor: 4096
+distanceLSH: 1987
+distanceTrue: 1987
+tLSH: 0.015625
+tTrue: 0
+Query: 18
+Nearest Neighbor: 903
+distanceLSH: 1964
+distanceTrue: 1964
+tLSH: 0.03125
+tTrue: 0
+Query: 19
+Nearest Neighbor: 9806
+distanceLSH: 1754
+distanceTrue: 1754
+tLSH: 0.015625
+tTrue: 0
+Query: 20
+Nearest Neighbor: 7027
+distanceLSH: 1239
+distanceTrue: 1239
+tLSH: 0.03125
+tTrue: 0
+Query: 21
+Nearest Neighbor: 4490
+distanceLSH: 486
+distanceTrue: 486
+tLSH: 0.015625
+tTrue: 0
+Query: 22
+Nearest Neighbor: 4957
+distanceLSH: 1159
+distanceTrue: 1159
+tLSH: 0.03125
+tTrue: 0
+Query: 23
+Nearest Neighbor: 4672
+distanceLSH: 1520
+distanceTrue: 1520
+tLSH: 0.015625
+tTrue: 0
+Query: 24
+Nearest Neighbor: 4630
+distanceLSH: 1068
+distanceTrue: 1068
+tLSH: 0.03125
+tTrue: 0
+Query: 25
+Nearest Neighbor: 6422
+distanceLSH: 1919
+distanceTrue: 1919
+tLSH: 0.03125
+tTrue: 0
+Query: 26
+Nearest Neighbor: 6827
+distanceLSH: 1251
+distanceTrue: 1251
+tLSH: 0.015625
+tTrue: 0
+Query: 27
+Nearest Neighbor: 5963
+distanceLSH: 1166
+distanceTrue: 1166
+tLSH: 0.03125
+tTrue: 0
+Query: 28
+Nearest Neighbor: 6827
+distanceLSH: 1504
+distanceTrue: 1504
+tLSH: 0.015625
+tTrue: 0
+Query: 29
+Nearest Neighbor: 5453
+distanceLSH: 734
+distanceTrue: 734
+tLSH: 0.03125
+tTrue: 0
+Query: 30
+Nearest Neighbor: 4777
+distanceLSH: 1819
+distanceTrue: 1819
+tLSH: 0.015625
+tTrue: 0
+Query: 31
+Nearest Neighbor: 5559
+distanceLSH: 741
+distanceTrue: 741
+tLSH: 0.03125
+tTrue: 0
+Query: 32
+Nearest Neighbor: 5300
+distanceLSH: 1210
+distanceTrue: 1210
+tLSH: 0.015625
+tTrue: 0
+Query: 33
+Nearest Neighbor: 8150
+distanceLSH: 2368
+distanceTrue: 2368
+tLSH: 0.03125
+tTrue: 0
+Query: 34
+Nearest Neighbor: 7058
+distanceLSH: 1951
+distanceTrue: 1951
+tLSH: 0.03125
+tTrue: 0
+Query: 35
+Nearest Neighbor: 5841
+distanceLSH: 969
+distanceTrue: 969
+tLSH: 0.015625
+tTrue: 0
+Query: 36
+Nearest Neighbor: 5842
+distanceLSH: 865
+distanceTrue: 865
+tLSH: 0.03125
+tTrue: 0
+Query: 37
+Nearest Neighbor: 5184
+distanceLSH: 1241
+distanceTrue: 1241
+tLSH: 0.015625
+tTrue: 0
+Query: 38
+Nearest Neighbor: 5500
+distanceLSH: 995
+distanceTrue: 995
+tLSH: 0.03125
+tTrue: 0
+Query: 39
+Nearest Neighbor: 5074
+distanceLSH: 1200
+distanceTrue: 1200
+tLSH: 0.015625
+tTrue: 0
+Query: 40
+Nearest Neighbor: 8307
+distanceLSH: 1106
+distanceTrue: 1106
+tLSH: 0.015625
+tTrue: 0
+Query: 41
+Nearest Neighbor: 4643
+distanceLSH: 1442
+distanceTrue: 1442
+tLSH: 0.015625
+tTrue: 0
+Query: 42
+Nearest Neighbor: 5224
+distanceLSH: 1629
+distanceTrue: 1629
+tLSH: 0.03125
+tTrue: 0
+Query: 43
+Nearest Neighbor: 6302
+distanceLSH: 1275
+distanceTrue: 1275
+tLSH: 0.03125
+tTrue: 0
+Query: 44
+Nearest Neighbor: 8615
+distanceLSH: 1483
+distanceTrue: 1483
+tLSH: 0.015625
+tTrue: 0
+Query: 45
+Nearest Neighbor: 7876
+distanceLSH: 1628
+distanceTrue: 1628
+tLSH: 0.03125
+tTrue: 0
+Query: 46
+Nearest Neighbor: 5880
+distanceLSH: 646
+distanceTrue: 646
+tLSH: 0.015625
+tTrue: 0
+Query: 47
+Nearest Neighbor: 5641
+distanceLSH: 2446
+distanceTrue: 2446
+tLSH: 0.03125
+tTrue: 0
+Query: 48
+Nearest Neighbor: 5213
+distanceLSH: 968
+distanceTrue: 968
+tLSH: 0.015625
+tTrue: 0
+Query: 49
+Nearest Neighbor: 5084
+distanceLSH: 849
+distanceTrue: 849
+tLSH: 0.015625
+tTrue: 0
+Query: 50
+Nearest Neighbor: 5012
+distanceLSH: 1130
+distanceTrue: 1130
+tLSH: 0.015625
+tTrue: 0
+Query: 51
+Nearest Neighbor: 6123
+distanceLSH: 848
+distanceTrue: 848
+tLSH: 0.03125
+tTrue: 0
+Query: 52
+Nearest Neighbor: 5673
+distanceLSH: 1188
+distanceTrue: 1188
+tLSH: 0.015625
+tTrue: 0
+Query: 53
+Nearest Neighbor: 8612
+distanceLSH: 1219
+distanceTrue: 1219
+tLSH: 0.03125
+tTrue: 0
+Query: 54
+Nearest Neighbor: 6158
+distanceLSH: 979
+distanceTrue: 979
+tLSH: 0.015625
+tTrue: 0
+Query: 55
+Nearest Neighbor: 5830
+distanceLSH: 1042
+distanceTrue: 1042
+tLSH: 0.03125
+tTrue: 0
+Query: 56
+Nearest Neighbor: 4903
+distanceLSH: 1436
+distanceTrue: 1436
+tLSH: 0.03125
+tTrue: 0
+Query: 57
+Nearest Neighbor: 5211
+distanceLSH: 1176
+distanceTrue: 1176
+tLSH: 0.015625
+tTrue: 0
+Query: 58
+Nearest Neighbor: 7237
+distanceLSH: 460
+distanceTrue: 460
+tLSH: 0.03125
+tTrue: 0
+Query: 59
+Nearest Neighbor: 6834
+distanceLSH: 619
+distanceTrue: 619
+tLSH: 0.015625
+tTrue: 0
+Query: 60
+Nearest Neighbor: 5278
+distanceLSH: 1209
+distanceTrue: 1209
+tLSH: 0.015625
+tTrue: 0
+Query: 61
+Nearest Neighbor: 8402
+distanceLSH: 732
+distanceTrue: 732
+tLSH: 0.015625
+tTrue: 0
+Query: 62
+Nearest Neighbor: 6560
+distanceLSH: 832
+distanceTrue: 832
+tLSH: 0.03125
+tTrue: 0
+Query: 63
+Nearest Neighbor: 6321
+distanceLSH: 627
+distanceTrue: 627
+tLSH: 0.015625
+tTrue: 0
+Query: 64
+Nearest Neighbor: 5635
+distanceLSH: 980
+distanceTrue: 980
+tLSH: 0.03125
+tTrue: 0
+Query: 65
+Nearest Neighbor: 6405
+distanceLSH: 1085
+distanceTrue: 1085
+tLSH: 0.015625
+tTrue: 0
+Query: 66
+Nearest Neighbor: 5390
+distanceLSH: 1189
+distanceTrue: 1189
+tLSH: 0.03125
+tTrue: 0
+Query: 67
+Nearest Neighbor: 6857
+distanceLSH: 1205
+distanceTrue: 1205
+tLSH: 0.015625
+tTrue: 0
+Query: 68
+Nearest Neighbor: 7217
+distanceLSH: 1251
+distanceTrue: 1251
+tLSH: 0.03125
+tTrue: 0
+Query: 69
+Nearest Neighbor: 5877
+distanceLSH: 1943
+distanceTrue: 1943
+tLSH: 0.015625
+tTrue: 0
+Query: 70
+Nearest Neighbor: 6124
+distanceLSH: 280
+distanceTrue: 280
+tLSH: 0.03125
+tTrue: 0
+Query: 71
+Nearest Neighbor: 5826
+distanceLSH: 1254
+distanceTrue: 1254
+tLSH: 0.015625
+tTrue: 0
+Query: 72
+Nearest Neighbor: 933
+distanceLSH: 2210
+distanceTrue: 2210
+tLSH: 0.03125
+tTrue: 0
+Query: 73
+Nearest Neighbor: 6853
+distanceLSH: 1573
+distanceTrue: 1573
+tLSH: 0.015625
+tTrue: 0
+Query: 74
+Nearest Neighbor: 7364
+distanceLSH: 986
+distanceTrue: 986
+tLSH: 0.03125
+tTrue: 0
+Query: 75
+Nearest Neighbor: 6553
+distanceLSH: 1416
+distanceTrue: 1416
+tLSH: 0.015625
+tTrue: 0
+Query: 76
+Nearest Neighbor: 7903
+distanceLSH: 1648
+distanceTrue: 1648
+tLSH: 0.03125
+tTrue: 0
+Query: 77
+Nearest Neighbor: 8578
+distanceLSH: 2177
+distanceTrue: 2177
+tLSH: 0.03125
+tTrue: 0
+Query: 78
+Nearest Neighbor: 9208
+distanceLSH: 1551
+distanceTrue: 1551
+tLSH: 0.015625
+tTrue: 0
+Query: 79
+Nearest Neighbor: 8069
+distanceLSH: 743
+distanceTrue: 743
+tLSH: 0.03125
+tTrue: 0
+Query: 80
+Nearest Neighbor: 7451
+distanceLSH: 987
+distanceTrue: 987
+tLSH: 0.015625
+tTrue: 0
+Query: 81
+Nearest Neighbor: 3086
+distanceLSH: 1969
+distanceTrue: 1969
+tLSH: 0.03125
+tTrue: 0
+Query: 82
+Nearest Neighbor: 90
+distanceLSH: 2001
+distanceTrue: 2001
+tLSH: 0.015625
+tTrue: 0
+Query: 83
+Nearest Neighbor: 6005
+distanceLSH: 1161
+distanceTrue: 1161
+tLSH: 0.03125
+tTrue: 0
+Query: 84
+Nearest Neighbor: 8894
+distanceLSH: 1359
+distanceTrue: 1359
+tLSH: 0.015625
+tTrue: 0
+Query: 85
+Nearest Neighbor: 8725
+distanceLSH: 1753
+distanceTrue: 1753
+tLSH: 0.03125
+tTrue: 0
+Query: 86
+Nearest Neighbor: 9151
+distanceLSH: 1673
+distanceTrue: 1673
+tLSH: 0.015625
+tTrue: 0
+Query: 87
+Nearest Neighbor: 7722
+distanceLSH: 683
+distanceTrue: 683
+tLSH: 0.03125
+tTrue: 0
+Query: 88
+Nearest Neighbor: 7098
+distanceLSH: 399
+distanceTrue: 399
+tLSH: 0.015625
+tTrue: 0
+Query: 89
+Nearest Neighbor: 7627
+distanceLSH: 690
+distanceTrue: 690
+tLSH: 0.03125
+tTrue: 0
+Query: 90
+Nearest Neighbor: 9258
+distanceLSH: 310
+distanceTrue: 310
+tLSH: 0.015625
+tTrue: 0
+Query: 91
+Nearest Neighbor: 8896
+distanceLSH: 1916
+distanceTrue: 1916
+tLSH: 0.03125
+tTrue: 0
+Query: 92
+Nearest Neighbor: 8356
+distanceLSH: 954
+distanceTrue: 954
+tLSH: 0.015625
+tTrue: 0
+Query: 93
+Nearest Neighbor: 8978
+distanceLSH: 1433
+distanceTrue: 1433
+tLSH: 0.03125
+tTrue: 0
+Query: 94
+Nearest Neighbor: 8419
+distanceLSH: 977
+distanceTrue: 977
+tLSH: 0.03125
+tTrue: 0
+Query: 95
+Nearest Neighbor: 1185
+distanceLSH: 2188
+distanceTrue: 2188
+tLSH: 0.015625
+tTrue: 0
+Query: 96
+Nearest Neighbor: 7512
+distanceLSH: 2146
+distanceTrue: 2146
+tLSH: 0.03125
+tTrue: 0
+Query: 97
+Nearest Neighbor: 8825
+distanceLSH: 1515
+distanceTrue: 1515
+tLSH: 0.015625
+tTrue: 0
+Query: 98
+Nearest Neighbor: 5810
+distanceLSH: 787
+distanceTrue: 787
+tLSH: 0.03125
+tTrue: 0
+Query: 99
+Nearest Neighbor: 8082
+distanceLSH: 1246
+distanceTrue: 1246
+tLSH: 0.015625
+tTrue: 0

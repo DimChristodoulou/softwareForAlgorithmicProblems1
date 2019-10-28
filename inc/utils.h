@@ -4,6 +4,7 @@
 
 #include "globals.h"
 #include "point.h"
+#include "curve.h"
 
 std::vector<Point*> parseFileForPoints(std::string);
 int strArraySearch(char const*[], int, char const*);
@@ -19,3 +20,5 @@ int mod(int, int);
 long long convertDecimalToBinary(int n);
 short int getBinaryDigitBasedOnHashValue(std::unordered_map<long long int, short int>, long long int);
 std::tuple<int, float> getNeighborOutOfPossibleNeighbors(std::vector<std::tuple<int, float>> possibleNeighbors);
+std::vector<Curve*> parseFileForCurvePoints(std::string fileName);
+vector<float> generateUniformTVector(int dimension);
