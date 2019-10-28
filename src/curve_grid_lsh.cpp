@@ -99,23 +99,25 @@ int main(int argc, char const *argv[])
 
     int delta;
     vector<float> tVector;
+    vector<tuple<float, float>> shiftedGrid;
     Curve * currentCurve;
     //Foreach curve we need to create lGrid grid curves and flatten them
     for (size_t i = 0; i < dataset.size(); i++){
-        
+
+        shiftedGrid.clear();
         currentCurve = dataset[i];
 
         //δ is calculated by 4*dimension*m1
         delta = 4 * 2 * currentCurve->getNumberOfPoints();
         //Dimension is 2
-        tVector = generateUniformTVector(2);
-        for (size_t k = 0; k < tVector.size(); k++)
-        {
+        tVector = generateUniformTVector(currentCurve->getNumberOfPoints());
+        for (size_t k = 0; k < tVector.size(); k++){
             cout << tVector[k];
         }
+        cout << endl;
         
         for (size_t j = 0; j < lGrid; j++){
-        /* code */
+            shiftedGrid = currentCurve->generateShiftedGrid(tVector, delta);
         }
     }
     

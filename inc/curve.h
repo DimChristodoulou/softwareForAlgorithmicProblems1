@@ -20,6 +20,7 @@ class Curve
 		void setNumberOfPoints(int data);
 		std::vector<std::tuple<float, float>> getCurvePoints();
 		void setCurvePoints(std::vector<std::tuple<float, float>> data);
+		std::vector<std::tuple<float, float>> generateShiftedGrid(std::vector<float>, int);
 };
 
 

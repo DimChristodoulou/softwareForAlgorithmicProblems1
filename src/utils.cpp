@@ -346,14 +346,14 @@ vector<Curve*> parseFileForCurvePoints(string fileName){
 
 }
 
-int getMaxDimension(vector<Curve*> dataset){
+// int getMaxDimension(vector<Curve*> dataset){
 
-    for (size_t i = 0; i < count; i++)
-    {
-        /* code */
-    }
+//     for (size_t i = 0; i < count; i++)
+//     {
+//         /* code */
+//     }
     
-}
+// }
 
 vector<float> generateUniformTVector(int dimension){
     static default_random_engine generator;
@@ -386,3 +386,16 @@ vector<float> generateUniformTVector(int dimension){
 // 	}
 // 	return vec;							//Return the grid_curve
 // }
+
+template <typename T>
+std::vector<T> operator+(const std::vector<T>& a, const std::vector<T>& b)
+{
+    assert(a.size() == b.size());
+
+    std::vector<T> result;
+    result.reserve(a.size());
+
+    std::transform(a.begin(), a.end(), b.begin(), 
+                   std::back_inserter(result), std::plus<T>());
+    return result;
+}

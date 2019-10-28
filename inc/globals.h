@@ -22,6 +22,8 @@
 #include <unordered_map>
 #include <tuple>
 #include <ctime>
-#include <bits/stdc++.h> 
+#include <bits/stdc++.h>
+#include <algorithm>
+#include <functional>
 
 #endif
